@@ -80,10 +80,16 @@
                             <span>Đơn Vị Up</span>
                             <input id="edit-donviup"  class="form-control" disabled>
                         </div>
-                        <div class="col-md-6 col-sm-12">
-                            <span>File CV</span>
-                            <span><input id="edit-file"  class="form-control" type="file" ></span>
+                        <p class="upload-container">
+                            <span>fileCV</span>
+                        <form id="singleUploadForm1" style="display: inline-block" name="singleUploadForm1">
+                            <input type="file" name="file" class="file-input" required/>
+                        </form>
+                        <div class="upload-response">
+                            <div id="singleFileUploadError1"></div>
+                            <div id="singleFileUploadSuccess1"></div>
                         </div>
+                        </p>
                     </div>
                 <div class="mt-3">
                     <button id="btn-addCV" class="btn btn-lg btn-primary btn-block">

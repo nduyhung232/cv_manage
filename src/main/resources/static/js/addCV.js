@@ -19,6 +19,36 @@ $(document).ready(function () {
     });
 
     $("#btn-addCV").click(function () {
+        f().then(function (result) {
+
+            // Get form
+            var form = $('#singleUploadForm1')[0];
+            var data = new FormData(form);
+            console.log(data);
+
+            $.ajax({
+                type: "POST",
+                enctype: 'multipart/form-data',
+                url: "/upload/filecv",
+                data: data,
+
+                // prevent jQuery from automatically transforming the data into a query string
+                processData: false,
+                contentType: false,
+                cache: false,
+                timeout: 1000000,
+                success: function (data) {
+                    alert("Thanh Cong");
+                },
+                error: function (data) {
+                    alert(data.responseText);
+
+                }
+            })
+        });
+    })
+
+    async function f() {
         var hoten = $("#edit-hoten").val();
         // var vitri = $("#edit-vitri").val();
         var soDT = $("#edit-soDT").val();
@@ -29,7 +59,7 @@ $(document).ready(function () {
         if (hoten == "" || soDT == "") {
             alert("họ tên hoặc số điện thọai trống !!")
         } else {
-            $.ajax({
+            await $.ajax({
                 url: '/createCV',
                 dataType: 'json',
                 type: 'POST',
@@ -37,7 +67,7 @@ $(document).ready(function () {
                 contentType: 'application/json',
                 data: JSON.stringify({
                     name: hoten,
-                    // passWord: vitri,
+                    // vitri: vitri,
                     soDT: soDT,
                     diaDiem: diadiem,
                     donViUp: donviup,
@@ -45,12 +75,12 @@ $(document).ready(function () {
                 }),
 
                 success: function (data) {
-                    alert("thành công")
+
                 },
                 error: function (data) {
                     alert(data.responseText);
                 }
             })
         }
-    })
+    }
 });
