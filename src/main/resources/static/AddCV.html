@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Add CV</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="bootstrap-4.3.1-dist/css/bootstrap.css" rel="stylesheet">
+    <link href="bootstrap-4.3.1-dist/css/bootstrap-grid.css" rel="stylesheet">
+    <link href="bootstrap-4.3.1-dist/css/bootstrap-reboot.css" rel="stylesheet">
+    <link href="css/general.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/css/bootstrap-multiselect.css" />
+    <link rel="stylesheet" href="asset/css/style.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+</head>
+<body>
+<!--menu-->
+<aside id="left-panel" class="left-panel">
+    <div w3-include-html="Menu.html"></div>
+</aside>
+<!--/menu-->
+
+<!-- Header-->
+<div id="right-panel" class="right-panel">
+    <div w3-include-html="Head.html"></div>
+
+    <div class="breadcrumbs">
+        <div class="col-sm-4">
+            <div class="page-header float-left">
+                <div class="page-title">
+                    <h1>Quản lý CV</h1>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-8">
+            <div class="page-header float-right">
+                <div class="page-title">
+                    <ol class="breadcrumb text-right">
+                        <li class="active">Thêm CV</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--    CONTENT-->
+
+
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header text-center "><strong>Thêm CV</strong></div>
+            <div class="card-body card-block">
+
+
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12">
+                            <span>Họ Tên</span>
+                            <span><input id="edit-hoten" class="form-control" ></span>
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                            <span>Vị Trí</span>
+                            <span><input id="edit-vitri"  class="form-control" ></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12">
+                            <span>Số Điện Thoại</span>
+                            <span><input id="edit-soDT" class="form-control"></span>
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                            <span>Địa Điểm</span>
+                            <select id="select-diadiem"  class="form-control">
+
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12">
+                            <span>Đơn Vị Up</span>
+                            <input id="edit-donviup"  class="form-control" disabled>
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                            <span>File CV</span>
+                            <span><input id="edit-file"  class="form-control" type="file" ></span>
+                        </div>
+                    </div>
+                <div class="mt-3">
+                    <button id="btn-addCV" class="btn btn-lg btn-primary btn-block">
+                        <i class="fas fa-plus"></i></i>&nbsp;
+                        <span id="payment-button-amount">Thêm CV</span>
+                        <span id="payment-button-sending" style="display:none;">Sending…</span>
+                    </button>
+                </div>
+                </div>
+        </div>
+    </div>
+    <!--    END CONTENT-->
+</div>
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.2/bootstrap3-typeahead.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.js"></script>
+<script src="http://www.w3schools.com/lib/w3data.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="js/general.js"></script>
+<script src="js/addCV.js"></script>
+<script>
+    w3IncludeHTML();
+</script>
+</body>
+</html>
