@@ -24,7 +24,7 @@ public class ImportDataController {
             return ResponseEntity.ok("Không có file CV");
         } else {
             String genFileName = UUID.randomUUID().toString();
-            String fileName = "file_cv/" + genFileName + ".pdf";
+            String fileName = "../file_cv/" + genFileName + ".pdf";
             FileOutputStream fileOutputStream = new FileOutputStream(fileName);
             byte[] filecv = file.getBytes();
             fileOutputStream.write(filecv);
