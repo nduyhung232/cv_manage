@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    var a = "DuyHung-CV.pdf";
+    var link = "DuyHung-CV.pdf";
 
     $.ajax({
         type: "GET",
@@ -32,7 +32,7 @@ $(document).ready(function () {
                     "                <div class=\"col-lg-2\" style='color: #929292'>\n" +
                     "<p>Ngày Update: " + data[i].ngayTao +
                     "</p>" +
-                    "<p> <a href='/getfile?link=file_cv/" + a + "'>file CV</a></p> </div>" +
+                    "<p> <a href='/getfile?link=file_cv/" + link + "' target=\"_blank\">file CV</a></p> </div>" +
                     "</li>";
 
                 var disAble = "<li class='row'style='background: #d6d6d6'>" +
@@ -56,7 +56,7 @@ $(document).ready(function () {
                     "                <div class=\"col-lg-2\" style='color: #929292'>\n" +
                     "<p>Ngày Update: " + data[i].ngayTao +
                     "</p>" +
-                    "<p> <a href='/getfile?link=file_cv/" + a + "'>file CV</a></p> </div>" +
+                    "<p> <a href='/getfile?link=file_cv/" + link + "' target=\"_blank\">file CV</a></p> </div>" +
                     "</li>";
 
                 if (data[i].idNguoiThayDoi == localStorage.getItem('id')) {
@@ -163,10 +163,34 @@ $(document).ready(function () {
                 console.log(data)
                 $("#cv-list").empty();
                 for (var i = 0; i < data.length; i++) {
-                    $("#cv-list").append(
-                        "<li class=\"col-lg-2\">\n" +
+                    var able = "<li class='row cvinfo-ele-able'>" +
+                        " <div class='col-lg-2'>\n" +
                         "                    <img src=\"images/avata.png\" style=\"height: 110px;margin: 10px;border: 1px solid\">\n" +
-                        "                </li>\n" +
+                        "                </div>\n" +
+                        "                <div class=\"col-lg-8\">\n" +
+                        "                    <div class='name' style=\"font-size: 28px;margin-top: 10px\">\n <strong>" +
+                        data[i].name +
+                        "                   </strong></div>\n" +
+                        "                    <div>\n" +
+                        data[i].viTri +
+                        "                    </div>\n" +
+                        "                    <div>\n" +
+                        data[i].diaDiem +
+                        "                    </div>\n" +
+                        "                    <div>\n" +
+                        data[i].soDT +
+                        "                    </div>\n" +
+                        "                </div>\n" +
+                        "                <div class=\"col-lg-2\" style='color: #929292'>\n" +
+                        "<p>Ngày Update: " + data[i].ngayTao +
+                        "</p>" +
+                        "<p> <a href='/getfile?link=file_cv/" + link + "' target=\"_blank\">file CV</a></p> </div>" +
+                        "</li>";
+
+                    var disAble = "<li class='row'style='background: #d6d6d6'>" +
+                        "<div class=\"col-lg-2\">\n " +
+                        "                    <img src=\"images/avata.png\" style=\"height: 110px;margin: 10px;border: 1px solid\">\n" +
+                        "                </div>\n" +
                         "                <div class=\"col-lg-8\">\n" +
                         "                    <div style=\"font-size: 28px;margin-top: 10px\">\n <strong>" +
                         data[i].name +
@@ -183,9 +207,15 @@ $(document).ready(function () {
                         "                </div>\n" +
                         "                <div class=\"col-lg-2\" style='color: #929292'>\n" +
                         "<p>Ngày Update: " + data[i].ngayTao +
-                        "<p> <a href='/getfile?link=file_cv/\" + a + \"'>file CV</a></p> </p>" +
-                        "   </div>"
-                    )
+                        "</p>" +
+                        "<p> <a href='/getfile?link=file_cv/" + link + "' target=\"_blank\">file CV</a></p> </div>" +
+                        "</li>";
+
+                    if (data[i].idNguoiThayDoi == localStorage.getItem('id')) {
+                        $("#cv-list").append(able);
+                    } else {
+                        $("#cv-list").append(disAble);
+                    }
                 }
             },
             error: function (data) {
