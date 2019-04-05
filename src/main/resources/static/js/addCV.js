@@ -17,6 +17,27 @@ $(document).ready(function () {
             }
         }
     });
+// get Vitri option
+    $.ajax({
+        type: "GET",
+        contentType: "application/json",
+        url: "/getViTriOp",
+        dataType: 'json',
+        cache: false,
+        timeout: 600000,
+        success: function (data) {
+            for (var i = 0; i < data.length; i++) {
+                $("#select-vitri").append(new Option(data[i].name, data[i].id));
+            }
+            $('#select-vitri').multiselect({
+                nonSelectedText: 'Chọn vị trí',
+                enableFiltering: true,
+                enableCaseInsensitiveFiltering: true,
+                buttonWidth:'100%'
+            });
+        }
+    });
+
 
     $("#btn-addCV").click(function () {
         f().then(function (result) {
@@ -38,10 +59,14 @@ $(document).ready(function () {
                 cache: false,
                 timeout: 1000000,
                 success: function (data) {
-                    alert("Thanh Cong");
+                    var priority = 'success';
+                    var title    = 'Thành công';
+                    var message  = 'Bạn đã thêm thành công 1 bản ghi';
+
+                    $.toaster({ priority : priority, title : title, message : message });
                 },
                 error: function (data) {
-                    alert(data.responseText);
+                    $.toaster({ message : 'Có lỗi xảy ra: '+data.responseText, title : 'Thất bại', priority : 'danger' });
 
                 }
             })
