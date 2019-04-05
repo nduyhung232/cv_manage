@@ -62,39 +62,91 @@ public class ManageSQL {
     }
 
     ////////////////////////////// SEARCH
-//    public ArrayList<CV> search(Search search) {
-//        ArrayList<CV> cvWebArrayList = new ArrayList<>();
-//        try {
-//            Statement statement = connection.createStatement();
-//            String sql = "select * from  cv \n" +
-//                    "join vitri on cv.idViTri = vitri.id \n" +
-//                    "join diadiem on cv.idDiaDiem = diadiem.id \n" +
-//                    "join donvi on cv.idDonViUp = donvi.id \n" +
-//                    "where cv.idViTri like '%" + search.getIdViTri() + "%' " +
-//                    "and cv.idDiaDiem like '%" + search.getIdDiaDiem() + "%' " +
-//                    "and cv.idDonVi like '%" + search.getDonViUp() + "%'";
-//            ResultSet resultSet = statement.executeQuery(sql);
-//
-//            while (resultSet.next()) {
-//                CV cv = new CV(
-//                        resultSet.getInt(1),
-//                        resultSet.getString(2),
-//                        resultSet.getString(10),
-//                        resultSet.getString(12),
-//                        resultSet.getString(14),
-//                        resultSet.getString(6),
-//                        resultSet.getString(7),
-//              5          resultSet.getByte(8));
-//
-//                cvWebArrayList.add(cv);
-//            }
-//
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//
-//        return cvWebArrayList;
-//    }
+    public ArrayList<CV> search(Search search) {
+        ArrayList<CV> cvWebArrayList = new ArrayList<>();
+        ArrayList<Integer> idList = new ArrayList<>();
+        try {
+            Statement statement = connection.createStatement();
+            String sql = "select cv.id from  cv \n" +
+                    "join diadiem on cv.idDiaDiem = diadiem.id \n" +
+                    "join donvi on cv.idDonViUp = donvi.id \n" +
+                    "join cv_vitri on cv.id = cv_vitri.idcv \n" +
+                    "join vitri on cv_vitri.idVitri = vitri.id\n" +
+                    "where cv.name like '%" + search.getHoten() + "%'\n" +
+                    "and cv.idDiaDiem = " + search.getIdDiaDiem() + "\n" +
+                    "and cv.idDonViUp = " + search.getIdDonVi();
+
+
+            for (int i = 1; i < search.getIdViTri().size(); i++) {
+                if (i == 1) {
+                    sql += " and (vitri.id = " + search.getIdViTri().get(0);
+                } else if (i == search.getIdViTri().size() - 1) {
+                    sql = sql + ")";
+                } else {
+                    sql += " or vitri.id = " + search.getIdViTri().get(i);
+                }
+            }
+
+
+            ResultSet resultSet = statement.executeQuery(sql);
+
+            while (resultSet.next()) {
+                if (!idList.contains(resultSet.getInt(1))) {
+                    idList.add(resultSet.getInt(1));
+                }
+            }
+
+            for (Integer id : idList) {
+                cvWebArrayList.add(getCVById(id));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return cvWebArrayList;
+    }
+
+    // get CV By Id
+    public CV getCVById(int id) {
+        CV cvOut = new CV();
+        try {
+            Statement statement = connection.createStatement();
+            String sql = "select cv.name,cv.ngayTao,cv.soDT,cv.fileCV,diadiem.diadiem, donvi.donvi," +
+                    " cv.id, cv.idNguoiThayDoi\n" +
+                    "from cv \n" +
+                    "join diadiem on cv.idDiaDiem = diadiem.id \n" +
+                    "join donvi on cv.idDonViUp = donvi.id where cv.id = " + id;
+            ResultSet resultSet = statement.executeQuery(sql);
+
+            if (resultSet.next()) {
+                cvOut = new CV(
+                        resultSet.getString(1),
+                        resultSet.getString(2),
+                        resultSet.getString(3),
+                        resultSet.getString(4),
+                        resultSet.getString(5),
+                        resultSet.getString(6),
+                        resultSet.getInt(7),
+                        resultSet.getInt(8));
+            }
+
+            String sql1 = "SELECT vitri.vitri FROM cv \n" +
+                    "join cv_vitri on cv.id = cv_vitri.idcv \n" +
+                    "join vitri on vitri.id = cv_vitri.idVitri \n" +
+                    "where cv.soDT = '" + cvOut.getSoDT() + "'";
+            ResultSet resultSet1 = statement.executeQuery(sql1);
+            while (resultSet1.next()) {
+                cvOut.getViTri().add(resultSet1.getString(1));
+            }
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return cvOut;
+    }
 
     /////////////////////////////////////////////////
     public ArrayList<Container> getOptionDiaDiem() {
