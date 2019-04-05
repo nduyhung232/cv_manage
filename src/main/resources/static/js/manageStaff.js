@@ -9,7 +9,7 @@ $(document).ready(function () {
         cache: false,
         timeout: 600000,
         success: function (data) {
-            console.log("list CV:"+data);
+            console.log("list CV:" + data);
             for (var i = 0; i < data.length; i++) {
                 var able = "<li class='row cvinfo-ele-able'>" +
                     " <div class='col-lg-2'>\n" +
@@ -32,7 +32,7 @@ $(document).ready(function () {
                     "                <div class=\"col-lg-2\" style='color: #929292'>\n" +
                     "<p>Ngày Update: " + data[i].ngayTao +
                     "</p>" +
-                    "<p> <a href='/getfile?link=file_cv/" + a + "'>test</a></p> </div>" +
+                    "<p> <a href='/getfile?link=file_cv/" + a + "'>file CV</a></p> </div>" +
                     "</li>";
 
                 var disAble = "<li class='row'style='background: #d6d6d6'>" +
@@ -56,7 +56,7 @@ $(document).ready(function () {
                     "                <div class=\"col-lg-2\" style='color: #929292'>\n" +
                     "<p>Ngày Update: " + data[i].ngayTao +
                     "</p>" +
-                    " </div>" +
+                    "<p> <a href='/getfile?link=file_cv/" + a + "'>file CV</a></p> </div>" +
                     "</li>";
 
                 if (data[i].idNguoiThayDoi == localStorage.getItem('id')) {
@@ -105,7 +105,7 @@ $(document).ready(function () {
                 nonSelectedText: 'Chọn vị trí',
                 enableFiltering: true,
                 enableCaseInsensitiveFiltering: true,
-                buttonWidth:'100%'
+                buttonWidth: '100%'
             });
         }
     });
@@ -128,27 +128,36 @@ $(document).ready(function () {
     });
 
     $("#btn-search").click(function () {
+        var data = {};
+
         var editHoTen = $("#edit-hoten").val();
         var editDonVi = $("#select-donvi").val();
         var editDiaDiem = $("#select-diadiem").val();
         var selectViTri = [];
-        $("#select-vitri option:selected").each(function(){
-           selectViTri.push($("#select-vitri option:selected").val());
+        $("#select-vitri option:selected").each(function () {
+            selectViTri.push($("#select-vitri option:selected").val());
             $(this).prop('selected', false)
         });
-        console.log(selectViTri);
+
+        data['hoten'] = editHoTen;
+        data['idDiaDiem'] = editDiaDiem;
+        data['idDonVi'] = editDonVi;
+        var vitri = [];
+        for (var i = 0; i < selectViTri.length; i++) {
+            vitri.push(selectViTri[i]);
+        }
+        data['idViTri'] = vitri;
+
+        console.log("vitri: " + selectViTri);
+        console.log(data)
+
         $.ajax({
             url: '/search',
             dataType: 'json',
             type: 'POST',
             cache: false,
             contentType: 'application/json',
-            data: JSON.stringify({
-                hoten: editHoTen,
-                idViTri: selectViTri,
-                idDiaDiem: editDiaDiem,
-                idDonVi: editDonVi
-            }),
+            data: JSON.stringify(data),
 
             success: function (data) {
                 console.log(data)
@@ -174,7 +183,7 @@ $(document).ready(function () {
                         "                </div>\n" +
                         "                <div class=\"col-lg-2\" style='color: #929292'>\n" +
                         "<p>Ngày Update: " + data[i].ngayTao +
-                        "</p>" +
+                        "<p> <a href='/getfile?link=file_cv/\" + a + \"'>file CV</a></p> </p>" +
                         "   </div>"
                     )
                 }
@@ -183,10 +192,5 @@ $(document).ready(function () {
                 alert(data)
             }
         })
-    })
-
-    $("#show-cv").click(function f() {
-        alert("aaaa")
-        window.open('/getfile?link=file_cv/DuyHung-CV.pdf');
     })
 });

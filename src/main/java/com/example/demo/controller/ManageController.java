@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.controller.object.Search;
 import com.example.demo.dao.ManageSQL;
 import com.example.demo.model.CV;
 import com.example.demo.model.Container;
@@ -38,11 +39,11 @@ public class ManageController {
         return ResponseEntity.ok(manageSQL.getOptionDonVi());
     }
 
-//    @PostMapping("/search")
-//    public ResponseEntity searchByHoten(@RequestBody Search search) {
-//        System.out.println(search.toString());
-//.        return ResponseEntity.ok(manageSQL.search(search));
-//    }
+    @PostMapping("/search")
+    public ResponseEntity searchByHoten(@RequestBody Search search) {
+        System.out.println(search.toString());
+        return ResponseEntity.ok(manageSQL.search(search));
+    }
 
     @PostMapping("/createDonVi")
     public ResponseEntity createDonVi(@RequestBody String donvi) {
@@ -61,7 +62,7 @@ public class ManageController {
     }
 
     @RequestMapping(value = "/getfile", method = RequestMethod.GET)
-    public ResponseEntity<byte[]> download1(HttpServletResponse response,@RequestParam String link) throws IOException {
+    public ResponseEntity<byte[]> download1(HttpServletResponse response, @RequestParam String link) throws IOException {
         ResponseEntity<byte[]> responses = null;
         try {
             File file = ResourceUtils.getFile(link);

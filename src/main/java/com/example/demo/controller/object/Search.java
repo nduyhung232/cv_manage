@@ -1,14 +1,15 @@
 package com.example.demo.controller.object;
 
+import java.util.ArrayList;
+
 public class Search {
     private String hoten;
-    private int idViTri;
+    private ArrayList<Integer> idViTri;
     private int idDiaDiem;
     private int idDonVi;
 
-    public Search(String hoten, int idViTri, int idDiaDiem, int idDonVi) {
+    public Search(String hoten, int idDiaDiem, int idDonVi) {
         this.hoten = hoten;
-        this.idViTri = idViTri;
         this.idDiaDiem = idDiaDiem;
         this.idDonVi = idDonVi;
     }
@@ -24,11 +25,11 @@ public class Search {
         this.hoten = hoten;
     }
 
-    public int getIdViTri() {
+    public ArrayList<Integer> getIdViTri() {
         return idViTri;
     }
 
-    public void setIdViTri(int idViTri) {
+    public void setIdViTri(ArrayList<Integer> idViTri) {
         this.idViTri = idViTri;
     }
 
