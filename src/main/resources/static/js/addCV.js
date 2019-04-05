@@ -59,10 +59,14 @@ $(document).ready(function () {
                 cache: false,
                 timeout: 1000000,
                 success: function (data) {
-                    alert("Thanh Cong");
+                    var priority = 'success';
+                    var title    = 'Thành công';
+                    var message  = 'Bạn đã thêm thành công 1 bản ghi';
+
+                    $.toaster({ priority : priority, title : title, message : message });
                 },
                 error: function (data) {
-                    alert(data.responseText);
+                    $.toaster({ message : 'Có lỗi xảy ra: '+data.responseText, title : 'Thất bại', priority : 'danger' });
 
                 }
             })
