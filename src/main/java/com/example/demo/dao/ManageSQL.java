@@ -5,10 +5,6 @@ import com.example.demo.dao.config.MyConnectionSql;
 import com.example.demo.model.CV;
 import com.example.demo.model.Container;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -263,8 +259,10 @@ public class ManageSQL {
                     cv.getIdNguoiThayDoi() + "," +
                     "'" + strDate + "'," +
                     cv.getDonViUp() + ")";
-
             statement.executeUpdate(sql);
+
+            // set id -> new CV
+            cv.setId(getIdByphoneNumber(cv.getSoDT()));
 
             for (int i = 0; i < cv.getViTri().size(); i++) {
                 String addVitri = "insert into cv_vitri (cv_vitri.idcv, cv_vitri.idVitri) \n" +
@@ -278,6 +276,25 @@ public class ManageSQL {
         }
 
         return true;
+    }
+
+    // get id By phoneNumber
+    public int getIdByphoneNumber(String soDT) {
+        int id = 0;
+        try {
+            Statement statement = connection.createStatement();
+            String sql = "select cv.id from cv where cv.soDT = '" + soDT + "'";
+            ResultSet resultSet = statement.executeQuery(sql);
+
+            if (resultSet.next()) {
+                id = resultSet.getInt(1);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return id;
     }
 
     public boolean checkPhonenumberExist(String soDT) {
