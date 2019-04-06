@@ -134,10 +134,12 @@ $(document).ready(function () {
         var editDonVi = $("#select-donvi").val();
         var editDiaDiem = $("#select-diadiem").val();
         var selectViTri = [];
-        $("#select-vitri option:selected").each(function () {
-            selectViTri.push($("#select-vitri option:selected").val());
-            $(this).prop('selected', false)
-        });
+
+        console.log($("#select-vitri option:selected"));
+
+        for (var i = 0; i < $("#select-vitri option:selected").length; i++) {
+            selectViTri.push($("#select-vitri option:selected").get(i).value);
+        }
 
         data['hoten'] = editHoTen;
         data['idDiaDiem'] = editDiaDiem;
