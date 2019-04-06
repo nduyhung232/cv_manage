@@ -81,11 +81,16 @@ $(document).ready(function () {
         cache: false,
         timeout: 600000,
         success: function (data) {
-            for (var i = 0; i < data.length; i++) {
                 for (var i = 0; i < data.length; i++) {
                     $("#select-diadiem").append(new Option(data[i].name, data[i].id));
                 }
-            }
+                $('#select-diadiem').multiselect({
+                nonSelectedText: 'Chọn địa điểm',
+                enableFiltering: true,
+                enableCaseInsensitiveFiltering: true,
+                buttonWidth: '100%'
+            });
+
         }
     });
 
@@ -119,11 +124,15 @@ $(document).ready(function () {
         cache: false,
         timeout: 600000,
         success: function (data) {
-            for (var i = 0; i < data.length; i++) {
                 for (var i = 0; i < data.length; i++) {
                     $("#select-donvi").append(new Option(data[i].name, data[i].id));
                 }
-            }
+                 $('#select-donvi').multiselect({
+                nonSelectedText: 'Chọn đơn vị',
+                enableFiltering: true,
+                enableCaseInsensitiveFiltering: true,
+                buttonWidth: '100%'
+            });
         }
     });
 
@@ -131,19 +140,25 @@ $(document).ready(function () {
         var data = {};
 
         var editHoTen = $("#edit-hoten").val();
-        var editDonVi = $("#select-donvi").val();
-        var editDiaDiem = $("#select-diadiem").val();
+
+        var donvi = [];
+        for (var i = 0; i < $("#select-donvi option:selected").length; i++) {
+            donvi.push($("#select-donvi option:selected").get(i).value);
+        }
+
+        var diadiem = [];
+        for (var i = 0; i < $("#select-diadiem option:selected").length; i++) {
+            diadiem.push($("#select-diadiem option:selected").get(i).value);
+        }
+
         var selectViTri = [];
-
-        console.log($("#select-vitri option:selected"));
-
         for (var i = 0; i < $("#select-vitri option:selected").length; i++) {
             selectViTri.push($("#select-vitri option:selected").get(i).value);
         }
 
         data['hoten'] = editHoTen;
-        data['idDiaDiem'] = editDiaDiem;
-        data['idDonVi'] = editDonVi;
+        data['idDiaDiem'] = diadiem;
+        data['idDonVi'] = donvi;
         var vitri = [];
         for (var i = 0; i < selectViTri.length; i++) {
             vitri.push(selectViTri[i]);
