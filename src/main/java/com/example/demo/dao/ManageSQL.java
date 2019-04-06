@@ -266,6 +266,11 @@ public class ManageSQL {
 
             statement.executeUpdate(sql);
 
+            for (int i = 0; i < cv.getViTri().size(); i++) {
+                String addVitri = "insert into cv_vitri (cv_vitri.idcv, cv_vitri.idVitri) \n" +
+                        "values (" + cv.getId() + "," + cv.getViTri().get(i) + ")";
+                statement.executeUpdate(addVitri);
+            }
 
         } catch (SQLException e) {
             e.printStackTrace();
