@@ -77,16 +77,15 @@ public class ManageSQL {
                     "and cv.idDonViUp = " + search.getIdDonVi();
 
 
-            for (int i = 1; i < search.getIdViTri().size(); i++) {
-                if (i == 1) {
+            for (int i = 0; i < search.getIdViTri().size(); i++) {
+                if (i == 0) {
                     sql += " and (vitri.id = " + search.getIdViTri().get(0);
-                } else if (i == search.getIdViTri().size() - 1) {
-                    sql = sql + ")";
                 } else {
                     sql += " or vitri.id = " + search.getIdViTri().get(i);
                 }
+                if (i == search.getIdViTri().size() - 1)
+                    sql = sql + ")";
             }
-
 
             ResultSet resultSet = statement.executeQuery(sql);
 
