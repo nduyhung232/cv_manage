@@ -40,51 +40,29 @@ $(document).ready(function () {
 
 
     $("#btn-addCV").click(function () {
-        f().then(function (result) {
-
-            // Get form
-            var form = $('#singleUploadForm1')[0];
-            var data = new FormData(form);
-            console.log(data);
-
-            $.ajax({
-                type: "POST",
-                enctype: 'multipart/form-data',
-                url: "/upload/filecv",
-                data: data,
-
-                // prevent jQuery from automatically transforming the data into a query string
-                processData: false,
-                contentType: false,
-                cache: false,
-                timeout: 1000000,
-                success: function (data) {
-                    var priority = 'success';
-                    var title    = 'Thành công';
-                    var message  = 'Bạn đã thêm thành công 1 bản ghi';
-
-                    $.toaster({ priority : priority, title : title, message : message });
-                },
-                error: function (data) {
-                    $.toaster({ message : 'Có lỗi xảy ra: '+data.responseText, title : 'Thất bại', priority : 'danger' });
-
-                }
-            })
-        });
-    })
-
-    async function f() {
         var hoten = $("#edit-hoten").val();
-        // var vitri = $("#edit-vitri").val();
+
+        var vitri = [];
+        for (var i = 0; i < $("#select-vitri option:selected").length; i++) {
+            vitri.push($("#select-vitri option:selected").get(i).value);
+        }
+
         var soDT = $("#edit-soDT").val();
         var diadiem = $("#select-diadiem").val();
         var donviup = localStorage.getItem('iddonvi');
         var nguoiThayDoi = localStorage.getItem('id');
 
-        if (hoten == "" || soDT == "") {
-            alert("họ tên hoặc số điện thọai trống !!")
-        } else {
-            await $.ajax({
+        if (hoten == "" ) {
+            $.toaster('Họ tên không được để trống', 'thông báo', 'warning');
+        }
+        else if(soDT==""){
+            $.toaster('Số điện thoại không được để trống', 'thông báo', 'warning');
+        }
+        else if($("#select-vitri option:selected").length<=0){
+            $.toaster('Vị trí không được để trống', 'thông báo', 'warning');
+        }
+        else {
+             $.ajax({
                 url: '/createCV',
                 dataType: 'json',
                 type: 'POST',
@@ -92,20 +70,49 @@ $(document).ready(function () {
                 contentType: 'application/json',
                 data: JSON.stringify({
                     name: hoten,
-                    // vitri: vitri,
+                    vitri: vitri,
                     soDT: soDT,
                     diaDiem: diadiem,
                     donViUp: donviup,
                     idNguoiThayDoi: nguoiThayDoi
+
                 }),
 
                 success: function (data) {
+                    // Get form
+                    $.toaster('Tạo thành công 1 CV', 'thông báo', 'success');
+                    var form = $('#singleUploadForm1')[0];
+                    var data = new FormData(form);
+                    console.log(data);
 
+                    $.ajax({
+                        type: "POST",
+                        enctype: 'multipart/form-data',
+                        url: "/upload/filecv",
+                        data: data,
+
+                        // prevent jQuery from automatically transforming the data into a query string
+                        processData: false,
+                        contentType: false,
+                        cache: false,
+                        timeout: 1000000,
+                        success: function (data) {
+
+                        },
+                        error: function (data) {
+                            $.toaster({ message : 'Có lỗi xảy ra: khi upload CV', title : 'Thất bại', priority : 'danger' });
+
+                        }
+                    })
                 },
                 error: function (data) {
-                    alert(data.responseText);
+                    $.toaster({ message : 'Có lỗi xảy ra:'+data.responseText, title : 'Thất bại', priority : 'danger' });
                 }
             })
         }
-    }
+
+
+        });
+
+
 });
