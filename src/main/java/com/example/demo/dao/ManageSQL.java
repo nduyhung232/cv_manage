@@ -72,11 +72,31 @@ public class ManageSQL {
                     "join donvi on cv.idDonViUp = donvi.id \n" +
                     "join cv_vitri on cv.id = cv_vitri.idcv \n" +
                     "join vitri on cv_vitri.idVitri = vitri.id\n" +
-                    "where cv.name like '%" + search.getHoten() + "%'\n" +
-                    "and cv.idDiaDiem = " + search.getIdDiaDiem() + "\n" +
-                    "and cv.idDonViUp = " + search.getIdDonVi();
+                    "where cv.name like '%" + search.getHoten() + "%'\n";
 
+            // add code --DiaDiem-- sql
+            for (int i = 0; i < search.getIdDiaDiem().size(); i++) {
+                if (i == 0) {
+                    sql += " and (cv.idDiaDiem = " + search.getIdDiaDiem().get(0);
+                } else {
+                    sql += " or cv.idDiaDiem = " + search.getIdDiaDiem().get(i);
+                }
+                if (i == search.getIdDiaDiem().size() - 1)
+                    sql = sql + ")\n";
+            }
 
+            // add code --DonViUp-- sql
+            for (int i = 0; i < search.getIdDonVi().size(); i++) {
+                if (i == 0) {
+                    sql += " and (idDonViUp = " + search.getIdDonVi().get(0);
+                } else {
+                    sql += " or idDonViUp = " + search.getIdDonVi().get(i);
+                }
+                if (i == search.getIdDonVi().size() - 1)
+                    sql = sql + ")\n";
+            }
+
+            // add code --ViTri-- sql
             for (int i = 0; i < search.getIdViTri().size(); i++) {
                 if (i == 0) {
                     sql += " and (vitri.id = " + search.getIdViTri().get(0);
@@ -84,7 +104,7 @@ public class ManageSQL {
                     sql += " or vitri.id = " + search.getIdViTri().get(i);
                 }
                 if (i == search.getIdViTri().size() - 1)
-                    sql = sql + ")";
+                    sql = sql + ")\n";
             }
 
             ResultSet resultSet = statement.executeQuery(sql);
