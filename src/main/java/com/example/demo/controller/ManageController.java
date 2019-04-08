@@ -67,7 +67,7 @@ public class ManageController {
         if (manageSQL.checkPhonenumberExist(cv.getSoDT())) {
             return ResponseEntity.ok("Số điện thoại trùng");
         } else {
-            return ResponseEntity.ok(manageSQL.createCV(cv));
+            return ResponseEntity.ok(manageSQL.updateCV(cv));
         }
     }
 
