@@ -61,6 +61,16 @@ public class ManageController {
         }
     }
 
+    @PostMapping("/updateCV")
+    public ResponseEntity updateCV(@RequestBody CV cv) {
+        System.out.println(cv.toString());
+        if (manageSQL.checkPhonenumberExist(cv.getSoDT())) {
+            return ResponseEntity.ok("Số điện thoại trùng");
+        } else {
+            return ResponseEntity.ok(manageSQL.createCV(cv));
+        }
+    }
+
     @RequestMapping(value = "/getfile", method = RequestMethod.GET)
     public ResponseEntity<byte[]> download1(HttpServletResponse response, @RequestParam String link) throws IOException {
         ResponseEntity<byte[]> responses = null;

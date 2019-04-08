@@ -278,6 +278,43 @@ public class ManageSQL {
         return true;
     }
 
+    public static boolean updateCV(CV cv) {
+        try {
+            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+            String strDate = formatter.format(new Date());
+
+            Statement statement = connection.createStatement();
+            String sql = "update cv " +
+                    " set name ='" + cv.getName() + "',\n" +
+                    " idDiaDiem = " + cv.getDiaDiem() + ",\n" +
+                    " soDT ='" + cv.getSoDT() + "',\n" +
+                    " idNguoiThayDoi= " + cv.getIdNguoiThayDoi() + " ,\n" +
+                    " ngayTao='" + strDate + "',\n" +
+                    " idDonViUp=" + cv.getDonViUp() + "\n" +
+                    " where cv.id = " + cv.getId();
+            statement.executeUpdate(sql);
+
+            // delete old relationship cv_vitri
+            for (int i = 0; i < cv.getViTri().size(); i++) {
+                String delete = "delete from cv_vitri where idcv = " + cv.getId();
+                statement.executeUpdate(delete);
+            }
+
+            // create new relationship cv_vitri
+            for (int i = 0; i < cv.getViTri().size(); i++) {
+                String addVitri = "insert into cv_vitri (cv_vitri.idcv, cv_vitri.idVitri) \n" +
+                        "values (" + cv.getId() + "," + cv.getViTri().get(i) + ")";
+                statement.executeUpdate(addVitri);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        return true;
+    }
+
     // get id By phoneNumber
     public int getIdByphoneNumber(String soDT) {
         int id = 0;
