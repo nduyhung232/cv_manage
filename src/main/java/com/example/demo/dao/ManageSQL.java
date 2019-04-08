@@ -234,7 +234,7 @@ public class ManageSQL {
         try {
             Statement statement = connection.createStatement();
 
-            String sql = "insert into donvi (donvi.name) values ('" + donvi + "')";
+            String sql = "insert into donvi (donvi.donvi) values ('" + donvi + "')";
             statement.executeUpdate(sql);
 
 

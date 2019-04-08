@@ -7,7 +7,6 @@ $(document).ready(function () {
         contentType: 'application/json',
 
         success: function (data) {
-            console.log(data)
             for (var i = 0; i < data.length; i++) {
                 $("#select-donvi").append(new Option(data[i].name, data[i].id));
             }
@@ -53,6 +52,7 @@ $(document).ready(function () {
             }
         })
     })
+
     $("#btn-addDonVi").click(function () {
         var editDonVi = $("#edit-addDonVi").val();
         $.ajax({
@@ -64,6 +64,8 @@ $(document).ready(function () {
             data: editDonVi,
 
             success: function (data) {
+                alert("Thêm đơn vị thành công");
+                window.location.href = '#';
             },
             error: function (data) {
                 alert(data)
