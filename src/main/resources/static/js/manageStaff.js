@@ -14,6 +14,7 @@ $(document).ready(function () {
                 var linkCV = data[i].fileCV != null ? "<a href='/getfile?link=" + data[i].fileCV + "' target=\\\"_blank\\\">file CV</a>" : "";
                 var able = "<li class='row cvinfo-ele-able' data-toggle=\"modal\" data-target=\"#myModal\">" +
                     " <div class='col-lg-2'>\n" +
+                    "<div style='display: none;'>"+data[i].id+"</div>"+
                     "                    <img src=\"images/avata.png\" style=\"height: 110px;margin: 10px;border: 1px solid\">\n" +
                     "                </div>\n" +
                     "                <div class=\"col-lg-8\">\n" +
@@ -38,6 +39,7 @@ $(document).ready(function () {
 
                 var disAble = "<li class='row'style='background: #d6d6d6'>" +
                     "<div class=\"col-lg-2\">\n " +
+                    "<div style='display: none;'>"+data[i].id+"</div>"+
                     "                    <img src=\"images/avata.png\" style=\"height: 110px;margin: 10px;border: 1px solid\">\n" +
                     "                </div>\n" +
                     "                <div class=\"col-lg-8\">\n" +
@@ -182,6 +184,7 @@ $(document).ready(function () {
                     var linkCV = data[i].fileCV != null ? "<a href='/getfile?link=" + data[i].fileCV + "' target=\\\"_blank\\\">file CV</a>" : "";
                     var able = "<li class='row cvinfo-ele-able'>" +
                         " <div class='col-lg-2'>\n" +
+                        "<div style='display: none;'>"+data[i].id+"</div>"+
                         "                    <img src=\"images/avata.png\" style=\"height: 110px;margin: 10px;border: 1px solid\">\n" +
                         "                </div>\n" +
                         "                <div class=\"col-lg-8\">\n" +
@@ -206,6 +209,7 @@ $(document).ready(function () {
 
                     var disAble = "<li class='row'style='background: #d6d6d6'>" +
                         "<div class=\"col-lg-2\">\n " +
+                        "<div style='display: none;'>"+data[i].id+"</div>"+
                         "                    <img src=\"images/avata.png\" style=\"height: 110px;margin: 10px;border: 1px solid\">\n" +
                         "                </div>\n" +
                         "                <div class=\"col-lg-8\">\n" +
@@ -240,65 +244,68 @@ $(document).ready(function () {
             }
         })
     })
-
+    var idViTriSelected=[];
     $("#cv-list").on("click", ".cvinfo-ele-able", function (event) {
-        $(".modal-title").html("<b>"+$(this).find('.col-lg-8').find('.name').text()+"</b>");
-        $("#hoten").val($(this).find('.col-lg-8').find('.name').text());
-        // $("#vitri").val($(this).find('.col-lg-8').find('.vitri').text());
-        console.log($(this).find('.col-lg-8').find('.name').text());
-        var a = [
-            {
-                "id":1,
-                "name":"ruby"
-            },
-            {
-                "id":2,
-                "name":"php"
-            },
-            {
-                "id":3,
-                "name":"sql"
-            },
-            {
-                "id":4,
-                "name":"C++"
-            }
-        ];
+        idViTriSelected=[];
+        $(".modal-title").html("<b>"+$(this).find('.col-lg-8').find('.name').text().trim()+"</b>");
+        $("#hoten").val($(this).find('.col-lg-8').find('.name').text().trim());
+
+        var vitriSelected = $(this).find('.col-lg-8').find('.vitri').text().split(',')
+        for(var i=0; i<vitriSelected.length;i++){
+            vitriSelected[i]=vitriSelected[i].trim();
+        }
+
+        console.log(vitriSelected);
+        $("#donvi").val(vitriSelected);
         var b =[3,4];
+
         // for (var i = 0; i < a.length; i++) {
         //     $("#vitri").append(new Option(a[i].name, a[i].id));
         // }
-        $('#vitri').multiselect({
-            nonSelectedText: 'Chọn vị trí',
-            enableFiltering: true,
-            enableCaseInsensitiveFiltering: true,
-            buttonWidth: '100%'
-        });
-        // $("#vitri option:selected").push(b);
-        // console.log($('#vitri').options.length);
-        // $.each(b, function(i,e){
-        //     if (b.indexOf( $('#vitri').options[i].value) >= 0) {
-        //         $('#vitri').options[i].selected = true;
-        //     }
-        // })
-        var values = "Test,Prof,Off";
-        var splitValues = values.split(',');
-        var multi = document.getElementById('vitri');
-        console.log(multi.options[0].value);
-        multi.value = null; // Reset pre-selected options (just in case)
-        var multiLen = multi.options.length;
-        // for (var i = 0; i < multiLen; i++) {
-        //     if (splitValues.indexOf(multi.options[i].value) >= 0) {
-        //         multi.options[i].selected = true;
-        //     }
-        // }
-        for (var i = 0; i < multiLen; i++) {
-            for(var j=0; j<splitValues.length;j++){
-                if(multi.options[i].value==splitValues[j]){
-                    multi.options[i].selected = true;
+        $.ajax({
+            type: "GET",
+            contentType: "application/json",
+            url: "/getViTriOp",
+            dataType: 'json',
+            cache: false,
+            timeout: 600000,
+            success: function (data) {
+                for (var i = 0; i < data.length; i++) {
+                    $("#vitri").append(new Option(data[i].name, data[i].id));
+                        for (var j=0; j<vitriSelected.length;j++){
+                            if(data[i].name == vitriSelected[j]){
+                                idViTriSelected.push(data[i].id);
+                                console.log(idViTriSelected);
+                            }
+                        }
                 }
+
+                var multi = document.getElementById('vitri');
+                var multiLen = multi.options.length;
+                for (var i = 0; i < multiLen; i++) {
+                    multi.options[i].selected = false;
+                }
+                for (var i = 0; i < multiLen; i++) {
+                    for(var j=0; j<idViTriSelected.length;j++){
+                        if(multi.options[i].value==idViTriSelected[j]){
+                            multi.options[i].selected = true;
+                        }
+                    }
+                }
+                $('#vitri').multiselect({
+                    nonSelectedText: 'Chọn vị trí',
+                    enableFiltering: true,
+                    enableCaseInsensitiveFiltering: true,
+                    buttonWidth: '100%'
+                });
             }
-        }
+        });
+
+        // var values = "Test,Prof,Off";
+        // var splitValues = values.split(',');
+
+
+
     });
 
 
