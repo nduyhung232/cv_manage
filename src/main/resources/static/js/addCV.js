@@ -51,7 +51,6 @@ $(document).ready(function () {
         var diadiem = $("#select-diadiem").val();
         var donviup = localStorage.getItem('iddonvi');
         var nguoiThayDoi = localStorage.getItem('id');
-        console.log(vitri)
 
         if (hoten == "" ) {
             $.toaster('Họ tên không được để trống', 'thông báo', 'warning');
@@ -71,7 +70,7 @@ $(document).ready(function () {
                 contentType: 'application/json',
                 data: JSON.stringify({
                     name: hoten,
-                    viTri: vitri,
+                    vitri: vitri,
                     soDT: soDT,
                     diaDiem: diadiem,
                     donViUp: donviup,

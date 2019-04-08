@@ -5,8 +5,14 @@ import java.util.ArrayList;
 public class Search {
     private String hoten;
     private ArrayList<Integer> idViTri;
-    private ArrayList<Integer> idDiaDiem;
-    private ArrayList<Integer> idDonVi;
+    private int idDiaDiem;
+    private int idDonVi;
+
+    public Search(String hoten, int idDiaDiem, int idDonVi) {
+        this.hoten = hoten;
+        this.idDiaDiem = idDiaDiem;
+        this.idDonVi = idDonVi;
+    }
 
     public Search() {
     }
@@ -27,19 +33,19 @@ public class Search {
         this.idViTri = idViTri;
     }
 
-    public ArrayList<Integer> getIdDiaDiem() {
+    public int getIdDiaDiem() {
         return idDiaDiem;
     }
 
-    public void setIdDiaDiem(ArrayList<Integer> idDiaDiem) {
+    public void setIdDiaDiem(int idDiaDiem) {
         this.idDiaDiem = idDiaDiem;
     }
 
-    public ArrayList<Integer> getIdDonVi() {
+    public int getIdDonVi() {
         return idDonVi;
     }
 
-    public void setIdDonVi(ArrayList<Integer> idDonVi) {
+    public void setIdDonVi(int idDonVi) {
         this.idDonVi = idDonVi;
     }
 
