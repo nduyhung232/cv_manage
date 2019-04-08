@@ -5,10 +5,6 @@ import com.example.demo.dao.config.MyConnectionSql;
 import com.example.demo.model.CV;
 import com.example.demo.model.Container;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -72,21 +68,40 @@ public class ManageSQL {
                     "join donvi on cv.idDonViUp = donvi.id \n" +
                     "join cv_vitri on cv.id = cv_vitri.idcv \n" +
                     "join vitri on cv_vitri.idVitri = vitri.id\n" +
-                    "where cv.name like '%" + search.getHoten() + "%'\n" +
-                    "and cv.idDiaDiem = " + search.getIdDiaDiem() + "\n" +
-                    "and cv.idDonViUp = " + search.getIdDonVi();
+                    "where cv.name like '%" + search.getHoten() + "%'\n";
 
+            // add code --DiaDiem-- sql
+            for (int i = 0; i < search.getIdDiaDiem().size(); i++) {
+                if (i == 0) {
+                    sql += " and (cv.idDiaDiem = " + search.getIdDiaDiem().get(0);
+                } else {
+                    sql += " or cv.idDiaDiem = " + search.getIdDiaDiem().get(i);
+                }
+                if (i == search.getIdDiaDiem().size() - 1)
+                    sql = sql + ")\n";
+            }
 
-            for (int i = 1; i < search.getIdViTri().size(); i++) {
-                if (i == 1) {
+            // add code --DonViUp-- sql
+            for (int i = 0; i < search.getIdDonVi().size(); i++) {
+                if (i == 0) {
+                    sql += " and (idDonViUp = " + search.getIdDonVi().get(0);
+                } else {
+                    sql += " or idDonViUp = " + search.getIdDonVi().get(i);
+                }
+                if (i == search.getIdDonVi().size() - 1)
+                    sql = sql + ")\n";
+            }
+
+            // add code --ViTri-- sql
+            for (int i = 0; i < search.getIdViTri().size(); i++) {
+                if (i == 0) {
                     sql += " and (vitri.id = " + search.getIdViTri().get(0);
-                } else if (i == search.getIdViTri().size() - 1) {
-                    sql = sql + ")";
                 } else {
                     sql += " or vitri.id = " + search.getIdViTri().get(i);
                 }
+                if (i == search.getIdViTri().size() - 1)
+                    sql = sql + ")\n";
             }
-
 
             ResultSet resultSet = statement.executeQuery(sql);
 
@@ -244,9 +259,16 @@ public class ManageSQL {
                     cv.getIdNguoiThayDoi() + "," +
                     "'" + strDate + "'," +
                     cv.getDonViUp() + ")";
-
             statement.executeUpdate(sql);
 
+            // set id -> new CV
+            cv.setId(getIdByphoneNumber(cv.getSoDT()));
+
+            for (int i = 0; i < cv.getViTri().size(); i++) {
+                String addVitri = "insert into cv_vitri (cv_vitri.idcv, cv_vitri.idVitri) \n" +
+                        "values (" + cv.getId() + "," + cv.getViTri().get(i) + ")";
+                statement.executeUpdate(addVitri);
+            }
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -254,6 +276,25 @@ public class ManageSQL {
         }
 
         return true;
+    }
+
+    // get id By phoneNumber
+    public int getIdByphoneNumber(String soDT) {
+        int id = 0;
+        try {
+            Statement statement = connection.createStatement();
+            String sql = "select cv.id from cv where cv.soDT = '" + soDT + "'";
+            ResultSet resultSet = statement.executeQuery(sql);
+
+            if (resultSet.next()) {
+                id = resultSet.getInt(1);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return id;
     }
 
     public boolean checkPhonenumberExist(String soDT) {
