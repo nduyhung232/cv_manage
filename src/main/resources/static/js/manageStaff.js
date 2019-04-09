@@ -1,76 +1,85 @@
 $(document).ready(function () {
+    var staffInfo=[];
+    var ListDiaDiem=[];
+    var ListDonVi=[];
+    var id=0;
+    var idDiaDiem=0;
+    var idDonVi=0;
+    var CV={};
+    getList();
+    function  getList() {
+        $.ajax({
+            type: "GET",
+            contentType: "application/json",
+            url: "/getStaffInfo",
+            dataType: 'json',
+            cache: false,
+            timeout: 600000,
+            success: function (data) {
+                staffInfo = data;
+                console.log(data);
+                for (var i = 0; i < data.length; i++) {
+                    console.log(data[i].viTri);
+                    var linkCV = data[i].fileCV != null ? "<a href='/getfile?link=" + data[i].fileCV + "' target=\\\"_blank\\\">file CV</a>" : "";
+                    var able = "<li class='row cvinfo-ele-able' data-toggle=\"modal\" data-target=\"#myModal\">" +
+                        " <div class='col-lg-2'>\n" +
+                        "<div class='id' style='display: none;'>" + data[i].id + "</div>" +
+                        "                    <img src=\"images/avata.png\" style=\"height: 110px;margin: 10px;border: 1px solid\">\n" +
+                        "                </div>\n" +
+                        "                <div class=\"col-lg-8\">\n" +
+                        "                    <div class='name' style=\"font-size: 28px;margin-top: 10px\">\n <strong>" +
+                        data[i].name +
+                        "                   </strong></div>\n" +
+                        "                    <div class='vitri'>\n" +
+                        data[i].viTri +
+                        "                    </div>\n" +
+                        "                    <div>\n" +
+                        data[i].diaDiem +
+                        "                    </div>\n" +
+                        "                    <div>\n" +
+                        data[i].soDT +
+                        "                    </div>\n" +
+                        "                </div>\n" +
+                        "                <div class=\"col-lg-2\" style='color: #929292'>\n" +
+                        "<p>Ngày Update: " + data[i].ngayTao +
+                        "</p>" +
+                        "<p>" + linkCV + "</p> </div>" +
+                        "</li>";
 
-    $.ajax({
-        type: "GET",
-        contentType: "application/json",
-        url: "/getStaffInfo",
-        dataType: 'json',
-        cache: false,
-        timeout: 600000,
-        success: function (data) {
-            console.log("list CV:" + data);
-            for (var i = 0; i < data.length; i++) {
-                console.log(data[i].viTri);
-                var linkCV = data[i].fileCV != null ? "<a href='/getfile?link=" + data[i].fileCV + "' target=\\\"_blank\\\">file CV</a>" : "";
-                var able = "<li class='row cvinfo-ele-able' data-toggle=\"modal\" data-target=\"#myModal\">" +
-                    " <div class='col-lg-2'>\n" +
-                    "<div style='display: none;'>" + data[i].id + "</div>" +
-                    "                    <img src=\"images/avata.png\" style=\"height: 110px;margin: 10px;border: 1px solid\">\n" +
-                    "                </div>\n" +
-                    "                <div class=\"col-lg-8\">\n" +
-                    "                    <div class='name' style=\"font-size: 28px;margin-top: 10px\">\n <strong>" +
-                    data[i].name +
-                    "                   </strong></div>\n" +
-                    "                    <div class='vitri'>\n" +
-                    data[i].viTri +
-                    "                    </div>\n" +
-                    "                    <div>\n" +
-                    data[i].diaDiem +
-                    "                    </div>\n" +
-                    "                    <div>\n" +
-                    data[i].soDT +
-                    "                    </div>\n" +
-                    "                </div>\n" +
-                    "                <div class=\"col-lg-2\" style='color: #929292'>\n" +
-                    "<p>Ngày Update: " + data[i].ngayTao +
-                    "</p>" +
-                    "<p>" + linkCV + "</p> </div>" +
-                    "</li>";
+                    var disAble = "<li class='row'style='background: #d6d6d6'>" +
+                        "<div class=\"col-lg-2\">\n " +
+                        "<div class='id' style='display: none;'>" + data[i].id + "</div>" +
+                        "                    <img src=\"images/avata.png\" style=\"height: 110px;margin: 10px;border: 1px solid\">\n" +
+                        "                </div>\n" +
+                        "                <div class=\"col-lg-8\">\n" +
+                        "                    <div style=\"font-size: 28px;margin-top: 10px\">\n <strong>" +
+                        data[i].name +
+                        "                   </strong></div>\n" +
+                        "                    <div>\n" +
+                        data[i].viTri +
+                        "                    </div>\n" +
+                        "                    <div>\n" +
+                        data[i].diaDiem +
+                        "                    </div>\n" +
+                        "                    <div>\n" +
+                        data[i].soDT +
+                        "                    </div>\n" +
+                        "                </div>\n" +
+                        "                <div class=\"col-lg-2\" style='color: #929292'>\n" +
+                        "<p>Ngày Update: " + data[i].ngayTao +
+                        "</p>" +
+                        "<p>" + linkCV + "</p> </div>" +
+                        "</li>";
 
-                var disAble = "<li class='row'style='background: #d6d6d6'>" +
-                    "<div class=\"col-lg-2\">\n " +
-                    "<div style='display: none;'>" + data[i].id + "</div>" +
-                    "                    <img src=\"images/avata.png\" style=\"height: 110px;margin: 10px;border: 1px solid\">\n" +
-                    "                </div>\n" +
-                    "                <div class=\"col-lg-8\">\n" +
-                    "                    <div style=\"font-size: 28px;margin-top: 10px\">\n <strong>" +
-                    data[i].name +
-                    "                   </strong></div>\n" +
-                    "                    <div>\n" +
-                    data[i].viTri +
-                    "                    </div>\n" +
-                    "                    <div>\n" +
-                    data[i].diaDiem +
-                    "                    </div>\n" +
-                    "                    <div>\n" +
-                    data[i].soDT +
-                    "                    </div>\n" +
-                    "                </div>\n" +
-                    "                <div class=\"col-lg-2\" style='color: #929292'>\n" +
-                    "<p>Ngày Update: " + data[i].ngayTao +
-                    "</p>" +
-                    "<p>" + linkCV + "</p> </div>" +
-                    "</li>";
-
-                if (data[i].idNguoiThayDoi == localStorage.getItem('id')) {
-                    $("#cv-list").append(able);
-                } else {
-                    $("#cv-list").append(disAble);
+                    if (data[i].idNguoiThayDoi == localStorage.getItem('id')) {
+                        $("#cv-list").append(able);
+                    } else {
+                        $("#cv-list").append(disAble);
+                    }
                 }
             }
-        }
-    });
-
+        });
+    }
 
 // get DiaDiem option
     $.ajax({
@@ -81,8 +90,10 @@ $(document).ready(function () {
         cache: false,
         timeout: 600000,
         success: function (data) {
+            ListDiaDiem=data;
             for (var i = 0; i < data.length; i++) {
                 $("#select-diadiem").append(new Option(data[i].name, data[i].id));
+                $("#diadiem").append(new Option(data[i].name, data[i].id));
             }
             $('#select-diadiem').multiselect({
                 nonSelectedText: 'Chọn địa điểm',
@@ -124,8 +135,10 @@ $(document).ready(function () {
         cache: false,
         timeout: 600000,
         success: function (data) {
+            ListDonVi=data;
             for (var i = 0; i < data.length; i++) {
                 $("#select-donvi").append(new Option(data[i].name, data[i].id));
+                $("#donvi").append(new Option(data[i].name, data[i].id));
             }
             $('#select-donvi').multiselect({
                 nonSelectedText: 'Chọn đơn vị',
@@ -181,16 +194,16 @@ $(document).ready(function () {
                 $("#cv-list").empty();
                 for (var i = 0; i < data.length; i++) {
                     var linkCV = data[i].fileCV != null ? "<a href='/getfile?link=" + data[i].fileCV + "' target=\\\"_blank\\\">file CV</a>" : "";
-                    var able = "<li class='row cvinfo-ele-able'>" +
+                    var able = "<li class='row cvinfo-ele-able'data-toggle=\"modal\" data-target=\"#myModal\"> " +
                         " <div class='col-lg-2'>\n" +
-                        "<div style='display: none;'>" + data[i].id + "</div>" +
+                        "<div class='id' style='display: none;'>" + data[i].id + "</div>" +
                         "                    <img src=\"images/avata.png\" style=\"height: 110px;margin: 10px;border: 1px solid\">\n" +
                         "                </div>\n" +
                         "                <div class=\"col-lg-8\">\n" +
                         "                    <div class='name' style=\"font-size: 28px;margin-top: 10px\">\n <strong>" +
                         data[i].name +
                         "                   </strong></div>\n" +
-                        "                    <div>\n" +
+                        "                    <div class='vitri'>\n" +
                         data[i].viTri +
                         "                    </div>\n" +
                         "                    <div>\n" +
@@ -208,14 +221,14 @@ $(document).ready(function () {
 
                     var disAble = "<li class='row'style='background: #d6d6d6'>" +
                         "<div class=\"col-lg-2\">\n " +
-                        "<div style='display: none;'>" + data[i].id + "</div>" +
+                        "<div class='id' style='display: none;'>" + data[i].id + "</div>" +
                         "                    <img src=\"images/avata.png\" style=\"height: 110px;margin: 10px;border: 1px solid\">\n" +
                         "                </div>\n" +
                         "                <div class=\"col-lg-8\">\n" +
                         "                    <div style=\"font-size: 28px;margin-top: 10px\">\n <strong>" +
                         data[i].name +
                         "                   </strong></div>\n" +
-                        "                    <div>\n" +
+                        "                    <div class='vitri'>\n" +
                         data[i].viTri +
                         "                    </div>\n" +
                         "                    <div>\n" +
@@ -245,18 +258,44 @@ $(document).ready(function () {
     })
     var idViTriSelected = [];
     $("#cv-list").on("click", ".cvinfo-ele-able", function (event) {
+        id = $(this).find('.col-lg-2').find('.id').text().trim()
+        for(var i=0;i<staffInfo.length;i++){
+            if(staffInfo[i].id==id){
+                CV=staffInfo[i];
+            }
+        }
+
+
         idViTriSelected = [];
         $(".modal-title").html("<b>" + $(this).find('.col-lg-8').find('.name').text().trim() + "</b>");
         $("#hoten").val($(this).find('.col-lg-8').find('.name').text().trim());
+        $('#sodt').val(CV.soDT);
+        //diadiem
+        for(var i=0; i<ListDiaDiem.length;i++){
+            if(CV.diaDiem==ListDiaDiem[i].name){
+                idDiaDiem=ListDiaDiem[i].id;
+            }
+        }
+        $("#diadiem").val(idDiaDiem);
 
+
+        //donvi
+        for(var i=0; i<ListDonVi.length;i++){
+            if(CV.donViUp==ListDonVi[i].name){
+                idDonVi=ListDonVi[i].id;
+                console.log(idDonVi);
+            }
+        }
+        $("#donvi").val(7);
         var vitriSelected = $(this).find('.col-lg-8').find('.vitri').text().split(',')
         for (var i = 0; i < vitriSelected.length; i++) {
             vitriSelected[i] = vitriSelected[i].trim();
         }
-
-        console.log(vitriSelected);
-        $("#donvi").val(vitriSelected);
-        var b = [3, 4];
+        console.log(CV.fileCV);
+        //file
+        var linkCV = CV.fileCV != null ? "<a class='btn btn-primary' style=\"color: white\" href='/getfile?link=" + CV.fileCV + "' target=\\\"_blank\\\">Xem CV</a>" : "";
+        $(".fileCV").empty();
+        $(".fileCV").append(linkCV);
 
         $.ajax({
             type: "GET",
@@ -267,7 +306,7 @@ $(document).ready(function () {
             timeout: 600000,
             success: function (data) {
                 $("#div-vitri").empty();
-                $("#div-vitri").append("<select id=\"vitri\" name=\"framework[]\" multiple=\"multiple\" class=\"form-control\" >")
+                $("#div-vitri").append("<label >Vị trí: </label><select id=\"vitri\" name=\"framework[]\" multiple=\"multiple\" class=\"form-control\" >")
 
                 for (var i = 0; i < data.length; i++) {
                     $("#vitri").append(new Option(data[i].name, data[i].id));
@@ -286,7 +325,6 @@ $(document).ready(function () {
                         buttonWidth: '100%'
                     }
                 );
-                $('#vitri').multiSelect('refresh');
             }
         });
 
@@ -296,5 +334,66 @@ $(document).ready(function () {
 
     });
 
+    $('#editCV').click(function () {
+        var Vitri = [];
+        for (var i = 0; i < $("#vitri option:selected").length; i++) {
+            Vitri.push($("#vitri option:selected").get(i).value);
+        }
+        var editName = $("#hoten").val();
+        var editSDT= $("#sodt").val();
+        var editIdDiaDiem = $("#diadiem").val();
+        var editIdDonVi = $("#donvi").val();
 
+        console.log("id "+id);
+        console.log(Vitri);
+        console.log("idDiaDiem "+ editIdDiaDiem);
+        console.log("idDonVi "+ editIdDonVi);
+        console.log(editSDT);
+        console.log(editName);
+        if (editName == "" ) {
+            $.toaster('Họ tên không được để trống', 'thông báo', 'warning');
+        }
+        else if(editSDT==""){
+            $.toaster('Số điện thoại không được để trống', 'thông báo', 'warning');
+        }
+        else if(editIdDiaDiem==""){
+            $.toaster('Địa điểm không được để trống', 'thông báo', 'warning');
+        }
+        else if(editIdDonVi==""){
+            $.toaster('Đơn vị không được để trống', 'thông báo', 'warning');
+        }
+        else if(Vitri.length<=0){
+            $.toaster('Vị trí không được để trống', 'thông báo', 'warning');
+        }
+        else {
+            $.ajax({
+                url: '/updateCV',
+                dataType: 'json',
+                type: 'POST',
+                cache: false,
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    id:id,
+                    name: editName,
+                    viTri: Vitri,
+                    soDT: editSDT,
+                    diaDiem: editIdDiaDiem,
+                    donViUp: editIdDonVi,
+                    idNguoiThayDoi: localStorage.getItem('id')
+
+                }),
+
+                success: function (data) {
+                    // Get form
+
+                    $("#cv-list").empty();
+                    getList();
+                    $.toaster('Cập nhật thành công 1 CV', 'thông báo', 'success');
+                },
+                error: function (data) {
+                    $.toaster({ message : 'Có lỗi xảy ra:'+data.responseText, title : 'Thất bại', priority : 'danger' });
+                }
+            })
+        }
+    })
 });

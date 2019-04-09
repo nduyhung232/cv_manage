@@ -260,7 +260,7 @@ public class ManageSQL {
                     "'" + strDate + "'," +
                     cv.getDonViUp() + ")";
             statement.executeUpdate(sql);
-
+            System.out.println(sql);
             // set id -> new CV
             cv.setId(getIdByphoneNumber(cv.getSoDT()));
 
@@ -293,7 +293,7 @@ public class ManageSQL {
                     " idDonViUp=" + cv.getDonViUp() + "\n" +
                     " where cv.id = " + cv.getId();
             statement.executeUpdate(sql);
-
+            System.out.println(sql);
             // delete old relationship cv_vitri
             for (int i = 0; i < cv.getViTri().size(); i++) {
                 String delete = "delete from cv_vitri where idcv = " + cv.getId();

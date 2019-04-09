@@ -64,11 +64,7 @@ public class ManageController {
     @PostMapping("/updateCV")
     public ResponseEntity updateCV(@RequestBody CV cv) {
         System.out.println(cv.toString());
-        if (manageSQL.checkPhonenumberExist(cv.getSoDT())) {
-            return ResponseEntity.ok("Số điện thoại trùng");
-        } else {
             return ResponseEntity.ok(manageSQL.updateCV(cv));
-        }
     }
 
     @RequestMapping(value = "/getfile", method = RequestMethod.GET)

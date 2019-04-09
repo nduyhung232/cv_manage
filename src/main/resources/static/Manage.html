@@ -177,13 +177,14 @@
                                 <div class="row form-group">
                                     <div class="col-md-6">
                                         <label>Đơn vị up: </label>
-                                        <input id="donvi" type="text" class="form-control">                                    </div>
+                                    <select id="donvi" class="form-control">
+                                    </select>
+                                    </div>
                                     <div class="col-md-6">
                                         <label>Địa điểm: </label>
-                                        <input id="diadiem" type="text" class="form-control">                                    </div>
+                                        <select id="diadiem" class="form-control"></select>                                    </div>
                                 </div>
                                 <div class="row form-group">
-
                                     <div  id="div-vitri" class="col-md-6">
                                         <label >Vị trí: </label>
                                         <!--<select id="vitri" name="framework[]" multiple="multiple" class="form-control" >-->
@@ -196,8 +197,10 @@
                                     </div>
 
                                     <div class="col-md-6">
-                                        <label >File CV: </label>
-                                        <input id="file" type="text" class="form-control">                                    </div>
+                                        <label class="col-md-12" style="padding-left: 0">File CV: </label>
+                                        <input style="padding: 0" id="file" type="file">
+                                        <div class="fileCV mt-1" style="color: #0e6498">sss</div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -205,7 +208,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal">Lưu</button>
+                <button type="button" class="btn btn-primary" id="editCV" data-dismiss="modal">Lưu</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </div>
@@ -214,13 +217,16 @@
 </div>
 <style>.dropdown-toggle::after{display: none} .form-control{border-radius: unset; box-shadow: none} label{font-weight: unset}</style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="asset/js/jquery-toaster.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.2/bootstrap3-typeahead.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.js"></script>
 <script src="http://www.w3schools.com/lib/w3data.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<!--<script src="vendors/popper.js/dist/umd/popper.min.js"></script>-->
 <script src="asset/js/main.js"></script>
+
+<!--<script src="vendors/popper.js/dist/umd/popper.min.js"></script>-->
+
 <script src="js/general.js"></script>
 <script src="js/manageStaff.js"></script>
 <script>
