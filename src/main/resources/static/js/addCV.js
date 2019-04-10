@@ -83,6 +83,7 @@ $(document).ready(function () {
                     // Get form
                     $.toaster('Tạo thành công 1 CV', 'thông báo', 'success');
                     var form = $('#singleUploadForm1')[0];
+                    console.log(form);
                     var data = new FormData(form);
                     console.log(data);
 

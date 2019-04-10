@@ -350,4 +350,21 @@ public class ManageSQL {
 
         return true;
     }
+    public boolean deleteCV(CV cv) {
+        try {
+            Statement statement = connection.createStatement();
+            String sql = "DELETE from cv_vitri where idcv = '" + cv.getId() + "'";
+            statement.executeUpdate(sql);
+            System.out.println(sql);
+
+            String delete = "delete from cv where id= '" + cv.getId() +"'";
+            statement.executeUpdate(delete);
+            System.out.println(delete);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return true;
+    }
 }

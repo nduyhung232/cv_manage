@@ -20,7 +20,7 @@ $(document).ready(function () {
                 console.log(data);
                 for (var i = 0; i < data.length; i++) {
                     console.log(data[i].viTri);
-                    var linkCV = data[i].fileCV != null ? "<a href='/getfile?link=" + data[i].fileCV + "' target=\\\"_blank\\\">file CV</a>" : "";
+                    var linkCV = data[i].fileCV != null ? "<b><a style='color: #337ab7' href='/getfile?link=" + data[i].fileCV + "' target=\\\"_blank\\\">Xem CV</a></b>" : "";
                     var able = "<li class='row cvinfo-ele-able' data-toggle=\"modal\" data-target=\"#myModal\">" +
                         " <div class='col-lg-2'>\n" +
                         "<div class='id' style='display: none;'>" + data[i].id + "</div>" +
@@ -193,7 +193,7 @@ $(document).ready(function () {
                 console.log(data)
                 $("#cv-list").empty();
                 for (var i = 0; i < data.length; i++) {
-                    var linkCV = data[i].fileCV != null ? "<a href='/getfile?link=" + data[i].fileCV + "' target=\\\"_blank\\\">file CV</a>" : "";
+                    var linkCV = data[i].fileCV != null ? "<b><a style='color: #337ab7' href='/getfile?link=" + data[i].fileCV + "' target=\\\"_blank\\\">file CV</a></b>" : "";
                     var able = "<li class='row cvinfo-ele-able'data-toggle=\"modal\" data-target=\"#myModal\"> " +
                         " <div class='col-lg-2'>\n" +
                         "<div class='id' style='display: none;'>" + data[i].id + "</div>" +
@@ -315,7 +315,7 @@ $(document).ready(function () {
                             $("#vitri").get(0).options[i].selected = true;
                         }
                     }
-                }
+                }   
 
                 $('#vitri').multiselect(
                     {
@@ -394,6 +394,37 @@ $(document).ready(function () {
                     $.toaster({ message : 'Có lỗi xảy ra:'+data.responseText, title : 'Thất bại', priority : 'danger' });
                 }
             })
+        }
+    })
+
+    //xoaCV
+    $("#deleteCV").click(function () {
+        var r = confirm("Bạn có chắc chắn muốn xóa CV '"+CV.name+"'" );
+        if (r == true) {
+            $.ajax({
+                url: '/deleteCV',
+                dataType: 'json',
+                type: 'POST',
+                cache: false,
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    id:id,
+
+                }),
+
+                success: function (data) {
+                    // Get form
+
+                    $("#cv-list").empty();
+                    getList();
+                    $.toaster('Xóa thành công 1 CV', 'thông báo', 'success');
+                },
+                error: function (data) {
+                    $.toaster({ message : 'Có lỗi xảy ra:'+data.responseText, title : 'Thất bại', priority : 'danger' });
+                }
+            })
+        } else {
+          console.log("cancel");
         }
     })
 });

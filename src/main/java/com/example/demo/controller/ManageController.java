@@ -66,6 +66,11 @@ public class ManageController {
         System.out.println(cv.toString());
             return ResponseEntity.ok(manageSQL.updateCV(cv));
     }
+    @PostMapping("/deleteCV")
+    public ResponseEntity deleteCV(@RequestBody CV cv) {
+        System.out.println("id cần xóa"+cv);
+        return ResponseEntity.ok(manageSQL.deleteCV(cv));
+    }
 
     @RequestMapping(value = "/getfile", method = RequestMethod.GET)
     public ResponseEntity<byte[]> download1(HttpServletResponse response, @RequestParam String link) throws IOException {
