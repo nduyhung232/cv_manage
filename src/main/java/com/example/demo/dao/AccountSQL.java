@@ -93,7 +93,7 @@ public class AccountSQL {
             String sql = "select Account.id, Account.userName,Account.password, Account.name,\n" +
                     "Account.phoneNumber, donvi.id, donvi.donvi, Account.status \n" +
                     "from Account join donvi on donvi.id = Account.idDonVi";
-            statement.executeUpdate(sql);
+            statement.execute(sql);
             ResultSet resultSet = statement.executeQuery(sql);
 
             while (resultSet.next()) {

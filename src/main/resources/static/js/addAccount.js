@@ -16,6 +16,48 @@ $(document).ready(function () {
         }
     })
 
+    function getList() {
+        $("#listAccount").empty();
+        $.ajax({
+            url: '/getAllAccount',
+            dataType: 'json',
+            type: 'GET',
+            cache: false,
+            contentType: 'application/json',
+
+            success: function (data) {
+                console.log(data);
+                for (var i = 0; i < data.length; i++) {
+                    var listData;
+                    if (data[i].status ==1) {
+                        listData = " <tr>\n" +
+                            "                            <td>"+data[i].userName+"</td>\n" +
+                            "                            <td>"+data[i].name+"</td>\n" +
+                            "                            <td>"+data[i].phoneNumber+"</td>\n" +
+                            "                            <td>"+data[i].donVi+"</td>\n" +
+                            "                            <td>Admin</td>\n" +
+                            "                        </tr>"
+                    }
+                   else {
+                        listData = " <tr>\n" +
+                            "                            <td>"+data[i].userName+"</td>\n" +
+                            "                            <td>"+data[i].name+"</td>\n" +
+                            "                            <td>"+data[i].phoneNumber+"</td>\n" +
+                            "                            <td>"+data[i].donVi+"</td>\n" +
+                            "                            <td>User</td>\n" +
+                            "                        </tr>"
+                    }
+
+                    $("#listAccount").append(listData);
+                }
+            },
+            error: function (data) {
+                alert(data)
+            }
+        })
+    }
+    getList();
+
     $("#btn-addAccount").click(function () {
         var userName = $("#edit-username").val();
         var pass = $("#edit-pass").val();

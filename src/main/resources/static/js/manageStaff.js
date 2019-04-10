@@ -386,8 +386,7 @@ $(document).ready(function () {
                 success: function (data) {
                     // Get form
 
-                    $("#cv-list").empty();
-                    getList();
+
                     $.toaster('Cập nhật thành công 1 CV', 'thông báo', 'success');
 
                     //uploadfile
@@ -408,7 +407,8 @@ $(document).ready(function () {
                         cache: false,
                         timeout: 1000000,
                         success: function (data) {
-
+                            $("#cv-list").empty();
+                            getList();
                         },
                         error: function (data) {
                             $.toaster({ message : 'Có lỗi xảy ra: khi upload CV', title : 'Thất bại', priority : 'danger' });
@@ -421,6 +421,7 @@ $(document).ready(function () {
                 }
             })
         }
+
     })
 
     //xoaCV
