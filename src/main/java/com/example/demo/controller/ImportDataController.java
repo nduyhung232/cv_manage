@@ -17,8 +17,8 @@ import java.util.UUID;
 public class ImportDataController {
     ImportDataSQL importDataSQL = new ImportDataSQL();
 
-    @PostMapping("/filecv")
-    public ResponseEntity UploadFileResponse(@RequestParam("file") MultipartFile file) throws IOException {
+    @PostMapping("/createFilecv")
+    public ResponseEntity CreateFileResponse(@RequestParam("file") MultipartFile file) throws IOException {
         if (file.isEmpty()) {
             System.out.println("file cv don't exist");
             return ResponseEntity.ok("Không có file CV");
@@ -31,7 +31,29 @@ public class ImportDataController {
 
             System.out.println("impot data success");
 
-            if (importDataSQL.updateLinkFileCV(fileName)) {
+            if (importDataSQL.createLinkFileCV(fileName)) {
+                return ResponseEntity.ok("thanh cong");
+            } else {
+                return ResponseEntity.ok("that bai");
+            }
+        }
+    }
+
+    @PostMapping("/updatefFilecv")
+    public ResponseEntity UpdateFileResponse(@RequestParam int id ,@RequestParam("file") MultipartFile file) throws IOException {
+        if (file.isEmpty()) {
+            System.out.println("file cv don't exist");
+            return ResponseEntity.ok("Không có file CV");
+        } else {
+            String genFileName = UUID.randomUUID().toString();
+            String fileName = "../file_cv/" + genFileName + ".pdf";
+            FileOutputStream fileOutputStream = new FileOutputStream(fileName);
+            byte[] filecv = file.getBytes();
+            fileOutputStream.write(filecv);
+
+            System.out.println("impot data success");
+
+            if (importDataSQL.updateLinkFileCV(id,fileName)) {
                 return ResponseEntity.ok("thanh cong");
             } else {
                 return ResponseEntity.ok("that bai");

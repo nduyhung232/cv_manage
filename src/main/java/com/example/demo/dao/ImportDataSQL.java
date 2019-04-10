@@ -11,12 +11,26 @@ public class ImportDataSQL {
     static MyConnectionSql myConnectionSQL = new MyConnectionSql();
     public static Connection connection = myConnectionSQL.getConnection();
 
-    public Boolean updateLinkFileCV(String link) {
-        if (getLateId() == 0){
+    public Boolean createLinkFileCV(String link) {
+        if (getLateId() == 0) {
             return false;
         }
         int id = getLateId();
 
+        try {
+            Statement statement = connection.createStatement();
+            String sql = "update cv set fileCV = '" + link + "' where id = " + id;
+            statement.executeUpdate(sql);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        return true;
+    }
+
+    public Boolean updateLinkFileCV(int id, String link) {
         try {
             Statement statement = connection.createStatement();
             String sql = "update cv set fileCV = '" + link + "' where id = " + id;
