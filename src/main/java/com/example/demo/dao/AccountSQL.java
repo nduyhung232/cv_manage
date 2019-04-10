@@ -73,7 +73,7 @@ public class AccountSQL {
                     "','" + account.getPassWord() +
                     "','" + account.getName() +
                     "','" + account.getPhoneNumber() +
-                    "'," + account.getDonVi() +
+                    "'," + account.getIdDonVi() +
                     ",'" + account.getStatus() +
                     "')";
             statement.executeUpdate(sql);
