@@ -25,7 +25,7 @@ public class AccountController {
     }
 
     @GetMapping("/getDonVi")
-    public ResponseEntity getStaffInfo() {
+    public ResponseEntity getDonVi() {
         return ResponseEntity.ok(accountSQL.getAllDonVi());
     }
 
@@ -33,5 +33,10 @@ public class AccountController {
     public ResponseEntity searchByHoten(@RequestBody Account account) {
         System.out.println(account.toString());
         return ResponseEntity.ok(accountSQL.createAccount(account));
+    }
+
+    @GetMapping("/getAllAccount")
+    public ResponseEntity getAllAccount() {
+        return ResponseEntity.ok(accountSQL.getAllAccount());
     }
 }
