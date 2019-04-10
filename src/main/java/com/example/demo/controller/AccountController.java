@@ -30,9 +30,15 @@ public class AccountController {
     }
 
     @PostMapping("/addAccount")
-    public ResponseEntity searchByHoten(@RequestBody Account account) {
+    public ResponseEntity addAccount(@RequestBody Account account) {
         System.out.println(account.toString());
         return ResponseEntity.ok(accountSQL.createAccount(account));
+    }
+
+    @PostMapping("/updateAccount")
+    public ResponseEntity updateAccount(@RequestBody Account account) {
+        System.out.println(account.toString());
+        return ResponseEntity.ok(accountSQL.updateAccount(account));
     }
 
     @GetMapping("/getAllAccount")

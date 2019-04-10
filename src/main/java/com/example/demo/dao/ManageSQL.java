@@ -278,7 +278,7 @@ public class ManageSQL {
         return true;
     }
 
-    public static boolean updateCV(CV cv) {
+    public boolean updateCV(CV cv) {
         try {
             SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
             String strDate = formatter.format(new Date());

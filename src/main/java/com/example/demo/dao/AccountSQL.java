@@ -117,5 +117,26 @@ public class AccountSQL {
 
         return accounts;
     }
+
+    public boolean updateAccount(Account account) {
+        try {
+            Statement statement = connection.createStatement();
+            String sql = "update Account set password ='" + account.getPassWord() + "',\n" +
+                    "Account.name = '" + account.getName() + "',\n" +
+                    "phoneNumber = '" + account.getPhoneNumber() + "',\n" +
+                    "idDonVi = " + account.getIdDonVi() + ",\n" +
+                    "status =  " + account.getStatus() + "\n" +
+                    "where id = " + account.getId();
+            System.out.println(sql);
+            statement.executeUpdate(sql);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        return true;
+    }
+
 }
 
