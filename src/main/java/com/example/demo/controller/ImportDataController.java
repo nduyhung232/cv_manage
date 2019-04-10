@@ -39,7 +39,7 @@ public class ImportDataController {
         }
     }
 
-    @PostMapping("/updatefFilecv")
+    @PostMapping("/updateFilecv")
     public ResponseEntity UpdateFileResponse(@RequestParam int id ,@RequestParam("file") MultipartFile file) throws IOException {
         if (file.isEmpty()) {
             System.out.println("file cv don't exist");
