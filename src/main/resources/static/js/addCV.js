@@ -90,7 +90,7 @@ $(document).ready(function () {
                     $.ajax({
                         type: "POST",
                         enctype: 'multipart/form-data',
-                        url: "/upload/filecv",
+                        url: "/upload/createFilecv",
                         data: data,
 
                         // prevent jQuery from automatically transforming the data into a query string

@@ -389,6 +389,32 @@ $(document).ready(function () {
                     $("#cv-list").empty();
                     getList();
                     $.toaster('Cập nhật thành công 1 CV', 'thông báo', 'success');
+
+                    //uploadfile
+                    var form = $('#singleUploadForm1')[0];
+                    console.log(form);
+                    var data = new FormData(form);
+                    console.log(data);
+                    var url="/upload/updateFilecv?id="+id;
+                    $.ajax({
+                        type: "POST",
+                        enctype: 'multipart/form-data',
+                        url: url,
+                        data: data,
+
+                        // prevent jQuery from automatically transforming the data into a query string
+                        processData: false,
+                        contentType: false,
+                        cache: false,
+                        timeout: 1000000,
+                        success: function (data) {
+
+                        },
+                        error: function (data) {
+                            $.toaster({ message : 'Có lỗi xảy ra: khi upload CV', title : 'Thất bại', priority : 'danger' });
+
+                        }
+                    })
                 },
                 error: function (data) {
                     $.toaster({ message : 'Có lỗi xảy ra:'+data.responseText, title : 'Thất bại', priority : 'danger' });
