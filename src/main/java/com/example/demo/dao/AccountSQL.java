@@ -2,6 +2,7 @@ package com.example.demo.dao;
 
 import com.example.demo.dao.config.MyConnectionSql;
 import com.example.demo.model.Account;
+import com.example.demo.model.CV;
 import com.example.demo.model.Container;
 
 import java.sql.Connection;
@@ -121,7 +122,7 @@ public class AccountSQL {
     public boolean updateAccount(Account account) {
         try {
             Statement statement = connection.createStatement();
-            String sql = "update Account set password ='" + account.getPassWord() + "',\n" +
+            String sql = "update Account set "+
                     "Account.name = '" + account.getName() + "',\n" +
                     "phoneNumber = '" + account.getPhoneNumber() + "',\n" +
                     "idDonVi = " + account.getIdDonVi() + ",\n" +
@@ -133,6 +134,35 @@ public class AccountSQL {
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
+        }
+
+        return true;
+    }
+    public boolean changePass(Account account) {
+        try {
+            Statement statement = connection.createStatement();
+            String sql = "update Account set "+
+                    "Account.password = '" + account.getPassWord() + "'\n" +
+                    "where id = " + account.getId();
+            System.out.println(sql);
+            statement.executeUpdate(sql);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        return true;
+    }
+    public boolean deleteAccount(Account account) {
+        try {
+            Statement statement = connection.createStatement();
+            String sql = "DELETE from account where id = '" + account.getId() + "'";
+            statement.executeUpdate(sql);
+            System.out.println(sql);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
 
         return true;

@@ -30,18 +30,18 @@ $(document).ready(function () {
                         "                    <div class='name' style=\"font-size: 28px;margin-top: 10px\">\n <strong>" +
                         data[i].name +
                         "                   </strong></div>\n" +
-                        "                    <div class='vitri'>\n" +
+                        "                    <div class='vitri'><i class=\"fas fa-calculator\"></i>\n" +
                         data[i].viTri +
                         "                    </div>\n" +
-                        "                    <div>\n" +
+                        "                    <div><i class=\"fas fa-map-marker-alt\"></i>\n" +
                         data[i].diaDiem +
                         "                    </div>\n" +
-                        "                    <div>\n" +
+                        "                    <div><i class=\"fas fa-phone\"></i>\n" +
                         data[i].soDT +
                         "                    </div>\n" +
                         "                </div>\n" +
                         "                <div class=\"col-lg-2\" style='color: #929292'>\n" +
-                        "<p>Ngày Update: " + data[i].ngayTao +
+                        "<p><i class=\"fas fa-calendar-alt\"></i> Ngày Update: " + data[i].ngayTao +
                         "</p>" +
                         "<p>" + linkCV + "</p> </div>" +
                         "</li>";
@@ -55,18 +55,18 @@ $(document).ready(function () {
                         "                    <div style=\"font-size: 28px;margin-top: 10px\">\n <strong>" +
                         data[i].name +
                         "                   </strong></div>\n" +
-                        "                    <div>\n" +
+                        "                    <div><i class=\"fas fa-calculator\"></i>\n" +
                         data[i].viTri +
                         "                    </div>\n" +
-                        "                    <div>\n" +
+                        "                    <div><i class=\"fas fa-map-marker-alt\"></i>\n" +
                         data[i].diaDiem +
                         "                    </div>\n" +
-                        "                    <div>\n" +
+                        "                    <div><i class=\"fas fa-phone\"></i>\n" +
                         data[i].soDT +
                         "                    </div>\n" +
                         "                </div>\n" +
                         "                <div class=\"col-lg-2\" style='color: #929292'>\n" +
-                        "<p>Ngày Update: " + data[i].ngayTao +
+                        "<p><i class=\"fas fa-calendar-alt\"></i> Ngày Update: " + data[i].ngayTao +
                         "</p>" +
                         "<p>" + linkCV + "</p> </div>" +
                         "</li>";
@@ -203,18 +203,18 @@ $(document).ready(function () {
                         "                    <div class='name' style=\"font-size: 28px;margin-top: 10px\">\n <strong>" +
                         data[i].name +
                         "                   </strong></div>\n" +
-                        "                    <div class='vitri'>\n" +
+                        "                    <div class='vitri'><i class=\"fas fa-calculator\"></i>\n" +
                         data[i].viTri +
                         "                    </div>\n" +
-                        "                    <div>\n" +
+                        "                    <div><i class=\"fas fa-map-marker-alt\"></i>\n" +
                         data[i].diaDiem +
                         "                    </div>\n" +
-                        "                    <div>\n" +
+                        "                    <div><i class=\"fas fa-phone\"></i>\n" +
                         data[i].soDT +
                         "                    </div>\n" +
                         "                </div>\n" +
                         "                <div class=\"col-lg-2\" style='color: #929292'>\n" +
-                        "<p>Ngày Update: " + data[i].ngayTao +
+                        "<p><i class=\"fas fa-calendar-alt\"></i> Ngày Update: " + data[i].ngayTao +
                         "</p>" +
                         "<p>" + linkCV + "</p> </div>" +
                         "</li>";
@@ -228,18 +228,18 @@ $(document).ready(function () {
                         "                    <div style=\"font-size: 28px;margin-top: 10px\">\n <strong>" +
                         data[i].name +
                         "                   </strong></div>\n" +
-                        "                    <div class='vitri'>\n" +
+                        "                    <div class='vitri'><i class=\"fas fa-calculator\"></i>\n" +
                         data[i].viTri +
                         "                    </div>\n" +
-                        "                    <div>\n" +
+                        "                    <div><i class=\"fas fa-map-marker-alt\"></i>\n" +
                         data[i].diaDiem +
                         "                    </div>\n" +
-                        "                    <div>\n" +
+                        "                    <div><i class=\"fas fa-phone\"></i>\n" +
                         data[i].soDT +
                         "                    </div>\n" +
                         "                </div>\n" +
                         "                <div class=\"col-lg-2\" style='color: #929292'>\n" +
-                        "<p>Ngày Update: " + data[i].ngayTao +
+                        "<p><i class=\"fas fa-calendar-alt\"></i> Ngày Update: " + data[i].ngayTao +
                         "</p>" +
                         "<p>" + linkCV + "</p> </div>" +
                         "</li>";
@@ -258,6 +258,10 @@ $(document).ready(function () {
     })
     var idViTriSelected = [];
     $("#cv-list").on("click", ".cvinfo-ele-able", function (event) {
+
+        $("#singleUploadForm1").empty();
+        $("#singleUploadForm1").append(" <input type=\"file\" name=\"file\" class=\"file-input form-control\" required/>")
+
         id = $(this).find('.col-lg-2').find('.id').text().trim()
         for(var i=0;i<staffInfo.length;i++){
             if(staffInfo[i].id==id){

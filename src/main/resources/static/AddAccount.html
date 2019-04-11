@@ -107,13 +107,13 @@
         </div>
 
 <!--    END CONTENT-->
-        <div class="col-lg-12">
             <div class="card">
                 <div class="card-header text-center "><strong>Account</strong></div>
                 <div class="card-body card-block">
                     <div class="col-lg-6">
                     </div>
-                    <table class="table table-striped">
+<!--                    //table-->
+                    <table class="table table-striped table-hover">
                         <thead>
                         <tr>
                             <th>User Name</th>
@@ -128,7 +128,7 @@
                     </table>
                 </div>
             </div>
-</div>
+
 
         <!-- Modal -->
         <div class="modal fade" id="myModal" role="dialog">
@@ -137,32 +137,17 @@
                 <!-- Modal content-->
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title">Modal Header</h4>
+                        <h4 class="modal-title"></h4>
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
                     <div class="modal-body">
-                        <div class="panel panel-default" style="border: solid 1px #cddbd1;">
+                        <div class="panel panel-default col-md-7 mr-md-5" style="border: solid 1px #cddbd1; padding: 0;">
                             <!--  ================= Personal information =================== -->
                             <!--  ================================================ -->
-                            <div class="panel-heading text-center">Thông tin cá nhân</div>
+                            <div class="panel-heading text-center ">Thông tin Account</div>
                             <div class="panel-body">
                                 <div class="row form-group">
-                                    <div class="col-xs-6 col-md-2">
-                                        <!--<div class="left-profile image-profile text-center"-->
-                                        <!--ng-model="vm.file"-->
-                                        <!--ngf-select="vm.selectFiles($files, $invalidFiles)"-->
-                                        <!--accept="*image/*"-->
-                                        <!--ngf-max-size="10MB">-->
-                                        <!--<p ng-if="vm.file.length <= 0">image here</p>-->
-                                        <!--<img ngf-src="vm.file" ngf-accept="'image/*'" style="width: 100%; height:100%;">-->
-                                        <!--</div>-->
-                                        <div class="left-profile image-profile text-center margin-top-10">
-                                            <!----><p ng-if="vm.student.candidateProfile==null">image here</p><!---->
-                                            <!-- <img  ngf-src="vm.file" ngf-accept="'image/*'" style="width: 100%; height:100%"> -->
-                                            <img height="160" width="130" title="" alt="">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-10">
+                                    <div class="col-md-12">
                                         <div class="row form-group">
                                             <div class="col-md-6">
                                                 <label>Họ tên: </label>
@@ -174,55 +159,70 @@
                                         </div>
                                         <div class="row form-group">
                                             <div class="col-md-6">
-                                                <label>Đơn vị up: </label>
+                                                <label>Đơn vị </label>
                                                 <select id="donvi" class="form-control">
                                                 </select>
                                             </div>
                                             <div class="col-md-6">
-                                                <label>Địa điểm: </label>
-                                                <select id="diadiem" class="form-control"></select>                                    </div>
-                                        </div>
-                                        <div class="row form-group">
-                                            <div  id="div-vitri" class="col-md-6">
-                                                <label >Vị trí: </label>
-                                                <!--<select id="vitri" name="framework[]" multiple="multiple" class="form-control" >-->
-                                                <!--option value="Test">Test</option>-->
-                                                <!--<option value="Prof">Prof</option>-->
-                                                <!--                                            <option value="Live">Live</option>-->
-                                                <!--                                            <option value="Off">Off</option>-->
-                                                <!--                                            <option value="On">On</option>-->
+                                                <label>Quyền</label>
+                                                <select id="quyen" class="form-control">
+                                                    <option value="1">Admin</option>
+                                                    <option value="0">User</option>
                                                 </select>
-                                            </div>
-
-                                            <div class="col-md-6">
-                                                <label class="col-md-12" style="padding-left: 0">File CV: </label>
-                                                <form id="singleUploadForm1" name="singleUploadForm1">
-                                                    <input type="file" name="file" class="file-input form-control" required/>
-                                                </form>
-                                                <div class="fileCV mt-1" style="color: #0e6498">sss</div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" id="editAccount" data-dismiss="modal">Sửa thông tin</button>
+                            </div>
                         </div>
+
+                        <div class="panel panel-default col-md-4" style="border: solid 1px #cddbd1; padding: 0">
+                            <!--  ================= Personal information =================== -->
+                            <!--  ================================================ -->
+                            <div class="panel-heading text-center ">Đổi mật khẩu</div>
+                            <div class="panel-body">
+                                <div class="row form-group">
+                                    <div class="col-md-12">
+                                        <div class="row form-group">
+                                            <div class="col-md-12">
+                                                <label>Password: </label>
+                                                <input id="newpass" type="password" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="row form-group">
+                                            <div class="col-md-12">
+                                                <label >Re Password:</label>
+                                                <input id="renew" type="password" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" id="changePass" data-dismiss="modal">Đổi mật khẩu</button>
+                            </div>
+                        </div>
+
+
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" id="editCV" data-dismiss="modal">Lưu</button>
-                        <button type="button" class="btn btn-danger" id="deleteCV" data-dismiss="modal">Xóa</button>
+                        <button type="button" class="btn btn-danger" id="deleteAccount" data-dismiss="modal">Xóa</button>
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     </div>
                 </div>
 
             </div>
 
+            <style>.dropdown-toggle::after{display: none} .form-control{border-radius: unset; box-shadow: none} label{font-weight: unset}</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.2/bootstrap3-typeahead.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>ipt>
 <script src="http://www.w3schools.com/lib/w3data.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+            <script src="asset/js/jquery-toaster.js"></script>
 <script src="js/general.js"></script>
 <script src="js/addAccount.js"></script>
 <script>

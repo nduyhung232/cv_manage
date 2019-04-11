@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.dao.AccountSQL;
 import com.example.demo.model.Account;
+import com.example.demo.model.CV;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -39,6 +40,17 @@ public class AccountController {
     public ResponseEntity updateAccount(@RequestBody Account account) {
         System.out.println(account.toString());
         return ResponseEntity.ok(accountSQL.updateAccount(account));
+    }
+
+    @PostMapping("/changePass")
+    public ResponseEntity changePass(@RequestBody Account account) {
+        System.out.println(account.toString());
+        return ResponseEntity.ok(accountSQL.changePass(account));
+    }
+    @PostMapping("/deleteAccount")
+    public ResponseEntity deleteAccount(@RequestBody Account account) {
+        System.out.println("id cần xóa"+account.getId());
+        return ResponseEntity.ok(accountSQL.deleteAccount(account));
     }
 
     @GetMapping("/getAllAccount")
