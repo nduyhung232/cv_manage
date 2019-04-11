@@ -58,8 +58,6 @@ $(document).ready(function () {
             }),
 
             success: function (data) {
-                alert(data.donVi)
-
                 if (data.userName == null) {
                     $("#mess-error").text("Sai thông tin đăng nhập")
                 } else {
