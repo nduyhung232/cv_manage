@@ -21,7 +21,7 @@ $(document).ready(function () {
                 for (var i = 0; i < data.length; i++) {
                     console.log(data[i].viTri);
                     var linkCV = data[i].fileCV != null ? "<b><a style='color: #337ab7' href='/getfile?link=" + data[i].fileCV + "' target=\\\"_blank\\\">Xem CV</a></b>" : "";
-                    var able = "<li class='row cvinfo-ele-able' data-toggle=\"modal\" data-target=\"#myModal\">" +
+                    var able = "<li class='row cvinfo-ele-able' style='border-bottom: 1px solid #878787;' data-toggle=\"modal\" data-target=\"#myModal\">" +
                         " <div class='col-lg-2'>\n" +
                         "<div class='id' style='display: none;'>" + data[i].id + "</div>" +
                         "                    <img src=\"images/avata.png\" style=\"height: 110px;margin: 10px;border: 1px solid\">\n" +
@@ -46,7 +46,7 @@ $(document).ready(function () {
                         "<p>" + linkCV + "</p> </div>" +
                         "</li>";
 
-                    var disAble = "<li class='row'style='background: #d6d6d6'>" +
+                    var disAble = "<li class='row'style='background: #d6d6d6;border-bottom: 1px solid #878787;'>" +
                         "<div class=\"col-lg-2\">\n " +
                         "<div class='id' style='display: none;'>" + data[i].id + "</div>" +
                         "                    <img src=\"images/avata.png\" style=\"height: 110px;margin: 10px;border: 1px solid\">\n" +
@@ -194,7 +194,7 @@ $(document).ready(function () {
                 $("#cv-list").empty();
                 for (var i = 0; i < data.length; i++) {
                     var linkCV = data[i].fileCV != null ? "<b><a style='color: #337ab7' href='/getfile?link=" + data[i].fileCV + "' target=\\\"_blank\\\">file CV</a></b>" : "";
-                    var able = "<li class='row cvinfo-ele-able'data-toggle=\"modal\" data-target=\"#myModal\"> " +
+                    var able = "<li  style='border-bottom: 1px solid #878787;' class='row cvinfo-ele-able'data-toggle=\"modal\" data-target=\"#myModal\"> " +
                         " <div class='col-lg-2'>\n" +
                         "<div class='id' style='display: none;'>" + data[i].id + "</div>" +
                         "                    <img src=\"images/avata.png\" style=\"height: 110px;margin: 10px;border: 1px solid\">\n" +
@@ -219,7 +219,7 @@ $(document).ready(function () {
                         "<p>" + linkCV + "</p> </div>" +
                         "</li>";
 
-                    var disAble = "<li class='row'style='background: #d6d6d6'>" +
+                    var disAble = "<li class='row'style='background: #d6d6d6;border-bottom: 1px solid #878787;'>" +
                         "<div class=\"col-lg-2\">\n " +
                         "<div class='id' style='display: none;'>" + data[i].id + "</div>" +
                         "                    <img src=\"images/avata.png\" style=\"height: 110px;margin: 10px;border: 1px solid\">\n" +
