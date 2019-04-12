@@ -389,7 +389,8 @@ $(document).ready(function () {
 
 
                     $.toaster('Cập nhật thành công 1 CV', 'thông báo', 'success');
-
+                    $("#cv-list").empty();
+                    getList();
                     //uploadfile
                     var form = $('#singleUploadForm1')[0];
                     console.log(form);
@@ -413,7 +414,8 @@ $(document).ready(function () {
                         },
                         error: function (data) {
                             $.toaster({message: 'Có lỗi xảy ra: khi upload CV', title: 'Thất bại', priority: 'danger'});
-
+                            $("#cv-list").empty();
+                            getList();
                         }
                     })
                 },

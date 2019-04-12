@@ -4,6 +4,8 @@ import com.example.demo.controller.object.Search;
 import com.example.demo.dao.config.MyConnectionSql;
 import com.example.demo.model.CV;
 import com.example.demo.model.Container;
+import com.example.demo.model.Organization;
+import com.example.demo.model.Position;
 
 import java.sql.*;
 import java.text.SimpleDateFormat;
@@ -245,6 +247,38 @@ public class ManageSQL {
 
         return true;
     }
+    public boolean updateORG(Organization org) {
+        try {
+            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+            String strDate = formatter.format(new Date());
+
+            Statement statement = connection.createStatement();
+            String sql = "update donvi " +
+                    " set donvi ='" + org.getName() + "'\n" +
+                    " where donvi.id = " + org.getId();
+            System.out.println(sql);
+            statement.executeUpdate(sql);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        return true;
+    }
+    public boolean deleteORG(Organization org) {
+        try {
+            Statement statement = connection.createStatement();
+            String sql = "DELETE from donvi where id = '" + org.getId() + "'";
+            statement.executeUpdate(sql);
+            System.out.println(sql);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        return true;
+    }
 
     public boolean createCV(CV cv) {
         try {
@@ -363,6 +397,76 @@ public class ManageSQL {
 
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+
+        return true;
+    }
+
+    public ArrayList<Container> getPosition() {
+        ArrayList<Container> cvWebArrayList = new ArrayList<>();
+        try {
+            Statement statement = connection.createStatement();
+            String sql = "select * from vitri";
+            ResultSet resultSet = statement.executeQuery(sql);
+
+            while (resultSet.next()) {
+                Container container = new Container(
+                        resultSet.getInt(1),
+                        resultSet.getString(2));
+
+                cvWebArrayList.add(container);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return cvWebArrayList;
+    }
+
+    public boolean createPosition(String position) {
+        try {
+            Statement statement = connection.createStatement();
+
+            String sql = "insert into vitri (vitri.vitri) values ('" + position + "')";
+            statement.executeUpdate(sql);
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        return true;
+    }
+    public boolean updatePosition(Position position) {
+        try {
+            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+            String strDate = formatter.format(new Date());
+
+            Statement statement = connection.createStatement();
+            String sql = "update vitri " +
+                    " set vitri ='" + position.getName() + "'\n" +
+                    " where vitri.id = " + position.getId();
+            System.out.println(sql);
+            statement.executeUpdate(sql);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        return true;
+    }
+    public boolean deletePosition(Position position) {
+        try {
+            Statement statement = connection.createStatement();
+            String sql = "DELETE from vitri where id = '" + position.getId() + "'";
+            statement.executeUpdate(sql);
+            System.out.println(sql);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
         }
 
         return true;

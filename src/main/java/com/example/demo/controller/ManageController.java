@@ -4,6 +4,7 @@ import com.example.demo.controller.object.Search;
 import com.example.demo.dao.ManageSQL;
 import com.example.demo.model.CV;
 import com.example.demo.model.Container;
+import com.example.demo.model.Organization;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.springframework.http.*;
@@ -49,6 +50,17 @@ public class ManageController {
     public ResponseEntity createDonVi(@RequestBody String donvi) {
         System.out.println(donvi);
         return ResponseEntity.ok(manageSQL.createDonVi(donvi));
+    }
+
+    @PostMapping("/updateDonvi")
+    public ResponseEntity updateDonVi(@RequestBody Organization org) {
+        System.out.println(org.toString());
+        return ResponseEntity.ok(manageSQL.updateORG(org));
+    }
+    @PostMapping("/deleteDonvi")
+    public ResponseEntity deleteORG(@RequestBody Organization org) {
+        System.out.println("id cần xóa"+org);
+        return ResponseEntity.ok(manageSQL.deleteORG(org));
     }
 
     @PostMapping("/createCV")

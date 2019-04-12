@@ -106,7 +106,7 @@ $(document).ready(function () {
             $.toaster('Họ tên không được để trống', 'Thông báo', 'warning');
         } else if (donvi == "") {
             $.toaster('Đơn vị không được để trống', 'Thông báo', 'warning');
-        } else if (soDT == "") {
+        } else if (soDT == "" ){
             $.toaster('Số điện thoại không được để trống', 'Thông báo', 'warning');
         } else if (status == "") {
             $.toaster('Quyền không được để trống', 'Thông báo', 'warning');
@@ -148,31 +148,6 @@ $(document).ready(function () {
 
     })
 
-    $("#btn-addDonVi").click(function () {
-        var editDonVi = $("#edit-addDonVi").val();
-        if (editDonVi == "") {
-            $.toaster('Tên đơn vị không được để trống', 'Thông báo', 'warning');
-        } else {
-            $.ajax({
-                url: '/createDonVi',
-                dataType: 'json',
-                type: 'POST',
-                cache: false,
-                contentType: 'application/json',
-                data: editDonVi,
-
-                success: function (data) {
-                    $.toaster('Thêm mới thành công 1 Đơn Vị', 'thông báo', 'success');
-                    window.location.href = '#';
-                    getDonVi();
-                },
-                error: function (data) {
-                    $.toaster({message: 'Có lỗi xảy ra: ' + data, title: 'Thất bại', priority: 'danger'});
-                }
-            })
-        }
-
-    })
 
     $("#editAccount").click(function () {
             var name = $("#hoten").val();

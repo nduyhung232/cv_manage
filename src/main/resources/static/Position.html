@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Vị trí</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="bootstrap-4.3.1-dist/css/bootstrap.css" rel="stylesheet">
+    <link href="bootstrap-4.3.1-dist/css/bootstrap-grid.css" rel="stylesheet">
+    <link href="bootstrap-4.3.1-dist/css/bootstrap-reboot.css" rel="stylesheet">
+    <link href="css/general.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/css/bootstrap-multiselect.css" />
+    <link rel="stylesheet" href="asset/css/style.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+
+</head>
+<body>
+<!--menu-->
+<aside id="left-panel" class="left-panel">
+    <div w3-include-html="Menu.html"></div>
+</aside>
+<!--/menu-->
+
+<!-- Header-->
+<div id="right-panel" class="right-panel">
+    <div w3-include-html="Head.html"></div>
+
+    <div class="breadcrumbs">
+        <div class="col-sm-4">
+            <div class="page-header float-left">
+                <div class="page-title">
+                    <h1>Vị trí</h1>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-8">
+            <div class="page-header float-right">
+                <div class="page-title">
+                    <ol class="breadcrumb text-right">
+                        <li class="active">Vị trí</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--    CONTENT-->
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header text-center "><strong>Quản lý</strong></div>
+            <div class="card-body card-block">
+                <div class="col-lg-12">
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12">
+                            <span>Tên vị trí</span>
+                            <span><input id="vitri" class="form-control"></span>
+                            <button id="addPosition" class=" btn btn-primary mt-3">Thêm vị trí</button>
+                        </div>
+
+                        <div class="col-md-6 col-sm-12">
+                            <span>Tên đơn vị</span>
+                            <span><input id="donvi" class="form-control"></span>
+                            <button id="addDonVi" class=" btn btn-primary mt-3">Thêm đơn vị</button>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+
+        <!--    END CONTENT-->
+        <div class="row" style="padding: 10px">
+        <div class="card col-md-6" style="padding: 0">
+            <div class="card-header text-center "><strong>Vị trí</strong></div>
+            <div class="card-body card-block">
+                <div class="col-lg-6">
+                </div>
+                <!--                    //table-->
+                <table class="table table-striped table-hover">
+                    <thead>
+                    <tr>
+                        <th>Tên vị trí</th>
+                    </tr>
+                    </thead>
+                    <tbody id="listPosition">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="card col-md-6" style="padding: 0">
+            <div class="card-header text-center "><strong>Đơn vị</strong></div>
+            <div class="card-body card-block">
+                <div class="col-lg-6">
+                </div>
+                <!--                    //table-->
+                <table class="table table-striped table-hover">
+                    <thead>
+                    <tr>
+                        <th>Tên đơn vị</th>
+                    </tr>
+                    </thead>
+                    <tbody id="listDonVi">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog" style="max-width: 800px;width: auto" >
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Vị trí</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="panel panel-default" style="border: solid 1px #cddbd1;">
+                        <!--  ================= Personal information =================== -->
+                        <!--  ================================================ -->
+                        <div class="panel-heading text-center">Thông tin</div>
+                        <div class="panel-body">
+                            <div class="row form-group">
+                                <div class="col-md-12">
+                                    <div class="row form-group">
+                                        <div class="col-md-12">
+                                            <label>Tên vị trí: </label>
+                                            <input id="editVitri" type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="btnEdit" >Lưu</button>
+                    <button type="button" class="btn btn-danger" id="btnDelete" data-dismiss="modal">Xóa</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="modal fade" id="myModalDV" role="dialog">
+        <div class="modal-dialog" style="max-width: 800px;width: auto" >
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Đơn vị</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="panel panel-default" style="border: solid 1px #cddbd1;">
+                        <!--  ================= Personal information =================== -->
+                        <!--  ================================================ -->
+                        <div class="panel-heading text-center">Thông tin</div>
+                        <div class="panel-body">
+                            <div class="row form-group">
+                                <div class="col-md-12">
+                                    <div class="row form-group">
+                                        <div class="col-md-12">
+                                            <label>Tên đơn vị: </label>
+                                            <input id="editDonVi" type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="btnEditDonVi" >Lưu</button>
+                    <button type="button" class="btn btn-danger" id="btnDeleteDonVi" data-dismiss="modal">Xóa</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+            <style>.dropdown-toggle::after{display: none} .form-control{border-radius: unset; box-shadow: none} label{font-weight: unset}</style>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.2/bootstrap3-typeahead.min.js"></script>
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+            <script src="http://www.w3schools.com/lib/w3data.js"></script>
+            <script src="asset/js/jquery-toaster.js"></script>
+            <script src="js/general.js"></script>
+            <script src="js/Position.js"></script>
+            <script>
+                w3IncludeHTML();
+            </script>
+</body>
+</html>
