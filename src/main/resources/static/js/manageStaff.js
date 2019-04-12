@@ -1,13 +1,14 @@
 $(document).ready(function () {
-    var staffInfo=[];
-    var ListDiaDiem=[];
-    var ListDonVi=[];
-    var id=0;
-    var idDiaDiem=0;
-    var idDonVi=0;
-    var CV={};
+    var staffInfo = [];
+    var ListDiaDiem = [];
+    var ListDonVi = [];
+    var id = 0;
+    var idDiaDiem = 0;
+    var idDonVi = 0;
+    var CV = {};
     getList();
-    function  getList() {
+
+    function getList() {
         $.ajax({
             type: "GET",
             contentType: "application/json",
@@ -90,7 +91,7 @@ $(document).ready(function () {
         cache: false,
         timeout: 600000,
         success: function (data) {
-            ListDiaDiem=data;
+            ListDiaDiem = data;
             for (var i = 0; i < data.length; i++) {
                 $("#select-diadiem").append(new Option(data[i].name, data[i].id));
                 $("#diadiem").append(new Option(data[i].name, data[i].id));
@@ -135,7 +136,7 @@ $(document).ready(function () {
         cache: false,
         timeout: 600000,
         success: function (data) {
-            ListDonVi=data;
+            ListDonVi = data;
             for (var i = 0; i < data.length; i++) {
                 $("#select-donvi").append(new Option(data[i].name, data[i].id));
                 $("#donvi").append(new Option(data[i].name, data[i].id));
@@ -263,9 +264,9 @@ $(document).ready(function () {
         $("#singleUploadForm1").append(" <input type=\"file\" name=\"file\" class=\"file-input form-control\" required/>")
 
         id = $(this).find('.col-lg-2').find('.id').text().trim()
-        for(var i=0;i<staffInfo.length;i++){
-            if(staffInfo[i].id==id){
-                CV=staffInfo[i];
+        for (var i = 0; i < staffInfo.length; i++) {
+            if (staffInfo[i].id == id) {
+                CV = staffInfo[i];
             }
         }
 
@@ -275,22 +276,23 @@ $(document).ready(function () {
         $("#hoten").val($(this).find('.col-lg-8').find('.name').text().trim());
         $('#sodt').val(CV.soDT);
         //diadiem
-        for(var i=0; i<ListDiaDiem.length;i++){
-            if(CV.diaDiem==ListDiaDiem[i].name){
-                idDiaDiem=ListDiaDiem[i].id;
+        for (var i = 0; i < ListDiaDiem.length; i++) {
+            if (CV.diaDiem == ListDiaDiem[i].name) {
+                idDiaDiem = ListDiaDiem[i].id;
             }
         }
         $("#diadiem").val(idDiaDiem);
 
 
         //donvi
-        for(var i=0; i<ListDonVi.length;i++){
-            if(CV.donViUp==ListDonVi[i].name){
-                idDonVi=ListDonVi[i].id;
+        for (var i = 0; i < ListDonVi.length; i++) {
+            if (CV.donViUp == ListDonVi[i].name) {
+                idDonVi = ListDonVi[i].id;
                 console.log(idDonVi);
             }
         }
-        $("#donvi").val(7);
+        var localstorage_idDonVi = localStorage.getItem("iddonvi");
+        $("#donvi").val(localstorage_idDonVi);
         var vitriSelected = $(this).find('.col-lg-8').find('.vitri').text().split(',')
         for (var i = 0; i < vitriSelected.length; i++) {
             vitriSelected[i] = vitriSelected[i].trim();
@@ -319,7 +321,7 @@ $(document).ready(function () {
                             $("#vitri").get(0).options[i].selected = true;
                         }
                     }
-                }   
+                }
 
                 $('#vitri').multiselect(
                     {
@@ -344,32 +346,27 @@ $(document).ready(function () {
             Vitri.push($("#vitri option:selected").get(i).value);
         }
         var editName = $("#hoten").val();
-        var editSDT= $("#sodt").val();
+        var editSDT = $("#sodt").val();
         var editIdDiaDiem = $("#diadiem").val();
         var editIdDonVi = $("#donvi").val();
 
-        console.log("id "+id);
+        console.log("id " + id);
         console.log(Vitri);
-        console.log("idDiaDiem "+ editIdDiaDiem);
-        console.log("idDonVi "+ editIdDonVi);
+        console.log("idDiaDiem " + editIdDiaDiem);
+        console.log("idDonVi " + editIdDonVi);
         console.log(editSDT);
         console.log(editName);
-        if (editName == "" ) {
+        if (editName == "") {
             $.toaster('Họ tên không được để trống', 'thông báo', 'warning');
-        }
-        else if(editSDT==""){
+        } else if (editSDT == "") {
             $.toaster('Số điện thoại không được để trống', 'thông báo', 'warning');
-        }
-        else if(editIdDiaDiem==""){
+        } else if (editIdDiaDiem == "") {
             $.toaster('Địa điểm không được để trống', 'thông báo', 'warning');
-        }
-        else if(editIdDonVi==""){
+        } else if (editIdDonVi == "") {
             $.toaster('Đơn vị không được để trống', 'thông báo', 'warning');
-        }
-        else if(Vitri.length<=0){
+        } else if (Vitri.length <= 0) {
             $.toaster('Vị trí không được để trống', 'thông báo', 'warning');
-        }
-        else {
+        } else {
             $.ajax({
                 url: '/updateCV',
                 dataType: 'json',
@@ -377,7 +374,7 @@ $(document).ready(function () {
                 cache: false,
                 contentType: 'application/json',
                 data: JSON.stringify({
-                    id:id,
+                    id: id,
                     name: editName,
                     viTri: Vitri,
                     soDT: editSDT,
@@ -398,7 +395,7 @@ $(document).ready(function () {
                     console.log(form);
                     var data = new FormData(form);
                     console.log(data);
-                    var url="/upload/updateFilecv?id="+id;
+                    var url = "/upload/updateFilecv?id=" + id;
                     $.ajax({
                         type: "POST",
                         enctype: 'multipart/form-data',
@@ -415,13 +412,13 @@ $(document).ready(function () {
                             getList();
                         },
                         error: function (data) {
-                            $.toaster({ message : 'Có lỗi xảy ra: khi upload CV', title : 'Thất bại', priority : 'danger' });
+                            $.toaster({message: 'Có lỗi xảy ra: khi upload CV', title: 'Thất bại', priority: 'danger'});
 
                         }
                     })
                 },
                 error: function (data) {
-                    $.toaster({ message : 'Có lỗi xảy ra:'+data.responseText, title : 'Thất bại', priority : 'danger' });
+                    $.toaster({message: 'Có lỗi xảy ra:' + data.responseText, title: 'Thất bại', priority: 'danger'});
                 }
             })
         }
@@ -430,7 +427,7 @@ $(document).ready(function () {
 
     //xoaCV
     $("#deleteCV").click(function () {
-        var r = confirm("Bạn có chắc chắn muốn xóa CV '"+CV.name+"'" );
+        var r = confirm("Bạn có chắc chắn muốn xóa CV '" + CV.name + "'");
         if (r == true) {
             $.ajax({
                 url: '/deleteCV',
@@ -439,7 +436,7 @@ $(document).ready(function () {
                 cache: false,
                 contentType: 'application/json',
                 data: JSON.stringify({
-                    id:id,
+                    id: id,
 
                 }),
 
@@ -451,11 +448,11 @@ $(document).ready(function () {
                     $.toaster('Xóa thành công 1 CV', 'thông báo', 'success');
                 },
                 error: function (data) {
-                    $.toaster({ message : 'Có lỗi xảy ra:'+data.responseText, title : 'Thất bại', priority : 'danger' });
+                    $.toaster({message: 'Có lỗi xảy ra:' + data.responseText, title: 'Thất bại', priority: 'danger'});
                 }
             })
         } else {
-          console.log("cancel");
+            console.log("cancel");
         }
     })
 });
